@@ -1,9 +1,12 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { classes } from '../../utils/classes'
 import Select from 'react-select'
+import RoleSelect from '../inputs/RoleSelect'
 
 const RegisterForm = () => {
+    const [role, setRole] = useState('')
+
     return (
         <div className = 'm-10 grow flex flex-col md:flex-row max-w-xl rounded-xl overflow-hidden border bg-gray-50 shadow-md'>
             <div>                    
@@ -30,7 +33,7 @@ const RegisterForm = () => {
                             placeholder="Enter the master password" 
                             class="input input-bordered input-info w-full" 
                         />
-
+                        <RoleSelect value = {role} setValue = {setRole}/>
                     </div>
                     <div className = 'p-2 text-center'>
                         Already have an account? 
