@@ -3,7 +3,7 @@ import { classes } from '../../utils/classes'
 
 const LoginForm = () => {
     return (
-        <div className = 'm-10 grow flex flex-col md:flex-row max-w-xl rounded-xl overflow-hidden border bg-gray-50 shadow-md'>
+        <div className = 'm-10 grow flex flex-col md:flex-row max-w-2xl rounded-xl overflow-hidden border bg-gray-50 shadow-md'>
             <div>                    
                 <img className = 'w-full bg-red-500 h-[100px] object-cover md:h-[400px] overflow-hidden' src = {'https://img.freepik.com/premium-vector/back-school-with-books-education-research-concept-illustration_1893-2704.jpg?w=2000'} alt = '' />
             </div>

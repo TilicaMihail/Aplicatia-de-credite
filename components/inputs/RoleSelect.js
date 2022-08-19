@@ -9,15 +9,17 @@ const options = [
 
 const RoleSelect = ({ value, setValue, className }) => {
     return (
-        <>
+        <div>
+            <div className = 'text-sm'>
+                Rol
+            </div>
             <Select 
                 value = {value} 
-                isClearable = {true}
                 options = {options}
                 onChange = {e => setValue(e)} 
                 className={className} 
             />
-        </>
+        </div>
     )
 }
 

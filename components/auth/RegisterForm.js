@@ -3,16 +3,22 @@ import React, { useState } from 'react'
 import { classes } from '../../utils/classes'
 import Select from 'react-select'
 import RoleSelect from '../inputs/RoleSelect'
+import ProfilSelect from '../inputs/ProfilSelect'
+import ClasaSelect from '../inputs/ClasaSelect'
 
 const RegisterForm = () => {
-    const [role, setRole] = useState('')
+    const [role, setRole] = useState({ value: 'elev', label: 'elev' })
+    const [profil, setProfil] = useState({ value: 'A', label: 'A' })
+    const [clasa, setClasa] = useState({ value: 9, label: '9' })
+    const [error, setError] = useState('')
 
     return (
-        <div className = 'm-10 grow flex flex-col md:flex-row max-w-xl rounded-xl overflow-hidden border bg-gray-50 shadow-md'>
+        
+        <div className = 'grow m-10 flex max-w-xl flex-col rounded-xl overflow-hidden border bg-gray-50 shadow-md'>
             <div>                    
-                <img className = 'w-full bg-red-500 h-[100px] object-cover md:h-[400px] overflow-hidden' src = {'https://img.freepik.com/premium-vector/back-school-with-books-education-research-concept-illustration_1893-2704.jpg?w=2000'} alt = '' />
+                <img className = 'w-full bg-red-500 h-[100px] object-cover overflow-hidden' src = {'https://img.freepik.com/premium-vector/back-school-with-books-education-research-concept-illustration_1893-2704.jpg?w=2000'} alt = '' />
             </div>
-            <div className = 'flex w-full p-5 flex-col gap-5 h-full justify-between md:h-[400px]'>
+            <div className = 'flex w-full p-6 flex-col gap-5 h-full justify-between '>
                 <div>
                     <div className = 'pb-10'>
                         <div className = 'text-2xl font-bold'>
@@ -22,10 +28,25 @@ const RegisterForm = () => {
                             Intra in aplicatia de credite
                         </div>
                     </div>
-                    <div className = 'flex flex-col gap-5'>
+                    <form className = 'flex flex-col gap-5'>
                         <input 
                             type="text" 
-                            placeholder="Enter your email" 
+                            placeholder="Enter the first name" 
+                            class="input input-info w-full" 
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Enter the last name" 
+                            class="input input-info w-full" 
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Enter the phone number" 
+                            class="input input-info w-full" 
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Enter the email" 
                             class="input input-info w-full" 
                         />
                         <input 
@@ -34,11 +55,18 @@ const RegisterForm = () => {
                             class="input input-bordered input-info w-full" 
                         />
                         <RoleSelect value = {role} setValue = {setRole}/>
-                    </div>
+                        {
+                            role.value === 'elev' && 
+                            <>
+                                <ClasaSelect value = {clasa} setValue = {setClasa} />
+                                <ProfilSelect value = {profil} setValue = {setProfil} />
+                            </>
+                        }
+                    </form>
                     <div className = 'p-2 text-center'>
                         Already have an account? 
                         <Link href = '/login'>
-                            <span className = 'p-1 text-blue-500 font-bold'>
+                            <span className = 'p-1 text-blue-500 font-bold cursor-pointer'>
                                 Login
                             </span>
                         </Link>
@@ -46,6 +74,9 @@ const RegisterForm = () => {
                     <div>
 
                     </div>
+                </div>
+                <div className = 'text-red-500 font-bold text-center'>
+                    {error}
                 </div>
                 <button className = {classes.btnSuccess}>
                     Inscrie-te
