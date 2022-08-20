@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (authInfo, setError) => {
         try {
-            const res = await axios.post(`${apiUrl}/auth/login`, authInfo)
+            const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
             setError(error.response.data.message)
@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
 
     const getUser = async () => {
         try {
-            const res = await axios.get(`${apiUrl}/users/current-user`)
+            const res = await axios.get(`${apiUrl}/users/current-user`, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
             setUser(undefined)

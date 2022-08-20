@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 
@@ -7,10 +8,13 @@ const LoginForm = () => {
     const [error, setError] = useState('')
 
     const { login, user } = useContext(AuthContext)
+    const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         await login({ email: email, password: password}, setError)
+        if(error === '')
+            router.push('/')
     }
 
     return (
@@ -32,12 +36,16 @@ const LoginForm = () => {
                     </div>
                     <div className = 'flex flex-col gap-5'>
                         <input 
+                            value = {email}
+                            onChange = {e => setEmail(e.target.value)}
                             required
                             type="text" 
                             placeholder="Enter your email" 
                             className="input input-info w-full" 
                         />
                         <input 
+                            value = {password}
+                            onChange = {e => setPassword(e.target.value)}
                             required
                             type="password" 
                             placeholder="Enter your password" 
@@ -47,9 +55,6 @@ const LoginForm = () => {
                 </div>
                 <div className = 'font-bold text-red-500 text-center'>
                     {error}
-                </div>
-                <div>
-                    { user?.firstName}
                 </div>
                 <button className = {'btn btn-success text-white w-full'} type="submit">
                     Login
