@@ -1,7 +1,8 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { apiUrl } from '../apiUrl'
 
-const AuthContext = React.createContext({})
+export const AuthContext = React.createContext({})
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState()
@@ -11,7 +12,7 @@ const AuthProvider = ({ children }) => {
             const res = await axios.post(`${apiUrl}/auth/login`, authInfo)
             setUser(res.data)
         } catch (error) {
-            setError(error)
+            setError(error.response.data.message)
         }
     }
     
@@ -20,7 +21,7 @@ const AuthProvider = ({ children }) => {
             const res = await axios.post(`${apiUrl}/auth/register`, authInfo)
             setUser(res.data)
         } catch (error) {
-            setError(error)
+            setError(error.response.data.message)
         }
     }
     

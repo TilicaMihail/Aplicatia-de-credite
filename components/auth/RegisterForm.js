@@ -32,27 +32,27 @@ const RegisterForm = () => {
                         <input 
                             type="text" 
                             placeholder="Enter the first name" 
-                            class="input input-info w-full" 
+                            className="input input-info w-full" 
                         />
                         <input 
                             type="text" 
                             placeholder="Enter the last name" 
-                            class="input input-info w-full" 
+                            className="input input-info w-full" 
                         />
                         <input 
                             type="text" 
                             placeholder="Enter the phone number" 
-                            class="input input-info w-full" 
+                            className="input input-info w-full" 
                         />
                         <input 
                             type="text" 
                             placeholder="Enter the email" 
-                            class="input input-info w-full" 
+                            className="input input-info w-full" 
                         />
                         <input 
                             type="password" 
                             placeholder="Enter the master password" 
-                            class="input input-bordered input-info w-full" 
+                            className="input input-bordered input-info w-full" 
                         />
                         <RoleSelect value = {role} setValue = {setRole}/>
                         {
