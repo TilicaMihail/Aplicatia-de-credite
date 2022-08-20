@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
-import { classes } from '../../utils/classes'
 
 const LoginForm = () => {
     const [email, setEmail] = useState('')
@@ -52,7 +51,7 @@ const LoginForm = () => {
                 <div>
                     { user?.firstName}
                 </div>
-                <button className = {classes.btnSuccess} type="submit">
+                <button className = {'btn btn-success text-white w-full'} type="submit">
                     Login
                 </button>
             </form> 

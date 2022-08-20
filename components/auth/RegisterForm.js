@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { classes } from '../../utils/classes'
 import RoleSelect from '../inputs/RoleSelect'
 import ProfilSelect from '../inputs/ProfilSelect'
 import ClasaSelect from '../inputs/ClasaSelect'
@@ -77,7 +76,7 @@ const RegisterForm = () => {
                 <div className = 'text-red-500 font-bold text-center'>
                     {error}
                 </div>
-                <button className = {classes.btnSuccess}>
+                <button className = {'btn btn-success text-white w-full'}>
                     Inscrie-te
                 </button>
             </div>
