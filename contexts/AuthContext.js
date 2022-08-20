@@ -6,8 +6,6 @@ const AuthContext = React.createContext({})
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState()
 
-    console.log(apiUrl)
-
     const login = async (authInfo, setError) => {
         try {
             const res = await axios.post(`${apiUrl}/auth/login`, authInfo)
