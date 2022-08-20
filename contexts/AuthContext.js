@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (authInfo, setError) => {
         try {
+            setError('')
             const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
@@ -18,7 +19,8 @@ const AuthProvider = ({ children }) => {
     
     const register = async (authInfo, setError) => {
         try {
-            const res = await axios.post(`${apiUrl}/auth/register`, authInfo)
+            setError('')
+            const res = await axios.post(`${apiUrl}/auth/register`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
             setError(error.response.data.message)
@@ -27,6 +29,7 @@ const AuthProvider = ({ children }) => {
     
     const logout = async () => {
         try {
+            setError('')
             await axios.post(`${apiUrl}/auth/logout`)
             setUser(undefined)
         } catch (error) {
