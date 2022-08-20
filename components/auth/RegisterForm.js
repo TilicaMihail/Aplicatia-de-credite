@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { classes } from '../../utils/classes'
-import Select from 'react-select'
 import RoleSelect from '../inputs/RoleSelect'
 import ProfilSelect from '../inputs/ProfilSelect'
 import ClasaSelect from '../inputs/ClasaSelect'
