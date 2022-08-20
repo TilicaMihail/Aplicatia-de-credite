@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { apiUrl } from '../apiUrl'
 
 const AuthContext = React.createContext({})
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState()
+
+    console.log(apiUrl)
 
     const login = async (authInfo, setError) => {
         try {
@@ -53,4 +55,4 @@ const AuthProvider = ({ children }) => {
     )
 }
 
-export default AuthContext
+export default AuthProvider
