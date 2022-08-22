@@ -10,7 +10,7 @@ const Register = () => {
 
     useEffect(() => {
         if(user && !loading)
-            router.push('/')
+            router.push('/proiecte')
     }, [loading])
 
     return (
