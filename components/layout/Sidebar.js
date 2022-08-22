@@ -46,7 +46,7 @@ const Sidebar = () => {
     const { user } = useContext(AuthContext)
 
     return (
-        <div className = 'h-screen w-56 shadow-lg bg-white flex flex-col justify-between'>
+        <div className = 'h-screen w-60 shadow-lg bg-white flex flex-col justify-between'>
             <div>
                 <div className = 'flex flex-col items-center justify-center pt-10 pb-8 '>
                     <div className = 'rounded-full overlfow-hidden bg-black h-20 w-20'>
