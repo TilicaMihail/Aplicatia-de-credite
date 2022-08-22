@@ -6,24 +6,23 @@ export const AuthContext = React.createContext({})
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
 
-    const login = async (authInfo, setError) => {
+    const login = async (authInfo) => {
         try {
-            setError('')
             const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
-            setError(error.response.data.message)
+            return error.response.data.message
         }
     }
     
-    const register = async (authInfo, setError) => {
+    const register = async (authInfo) => {
         try {
-            setError('')
             const res = await axios.post(`${apiUrl}/auth/register`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
-            setError(error.response.data.message)
+            return error.response.data.message
         }
     }
     
@@ -41,7 +40,9 @@ const AuthProvider = ({ children }) => {
         try {
             const res = await axios.get(`${apiUrl}/users/current-user`, { withCredentials: true })
             setUser(res.data)
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             setUser(undefined)
         }
     }
@@ -51,7 +52,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value = {{ user, setUser, login, register, logout, getUser }}>
+        <AuthContext.Provider value = {{ user, loading, setUser, login, register, logout, getUser }}>
             { children }
         </AuthContext.Provider>
     )

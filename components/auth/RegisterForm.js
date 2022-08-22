@@ -18,12 +18,12 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    const { register, user } = useContext(AuthContext)
+    const { register } = useContext(AuthContext)
     const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await register({
+        const err = await register({
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -32,8 +32,9 @@ const RegisterForm = () => {
             role: role.value,
             profil: profil.value,
             clasa: clasa.value,
-        }, setError)
-        if(error === '')
+        })
+        setError(err)
+        if(!err)
             router.push('/')
     }
 

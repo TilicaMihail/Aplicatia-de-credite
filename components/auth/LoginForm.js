@@ -12,8 +12,9 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await login({ email: email, password: password}, setError)
-        if(error === '')
+        const err = await login({ email: email, password: password}, setError)
+        setError(err)
+        if(!err)
             router.push('/')
     }
 
