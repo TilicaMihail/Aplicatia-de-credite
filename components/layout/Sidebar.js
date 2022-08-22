@@ -1,7 +1,9 @@
+import { Drawer } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const sidebarData = [
     {
@@ -41,12 +43,12 @@ const sidebarData = [
     },
 ]
 
-const Sidebar = () => {
+const SidebarComponent = ({ smallScreen}) => {
     const router = useRouter();
     const { user } = useContext(AuthContext)
 
     return (
-        <div className = 'h-screen w-60 shadow-lg bg-white flex flex-col justify-between'>
+        <div className = {'h-screen w-60 shadow-lg bg-white flex flex-col justify-between ' + (!smallScreen && ' fixed')}>
             <div>
                 <div className = 'flex flex-col items-center justify-center pt-10 pb-8 '>
                     <div className = 'rounded-full overlfow-hidden bg-black h-20 w-20'>
@@ -89,6 +91,24 @@ const Sidebar = () => {
                 {user?.lastName}
             </div>
         </div>
+    )
+}
+
+const Sidebar = ({ open, setOpen}) => {
+    const { width, height } = useWindowSize()
+
+    if(width < 640)
+        return (
+            <Drawer
+                open = {open}
+                onClose = {e => setOpen(false)}
+            >
+                <SidebarComponent  smallScreen={true}/>
+            </Drawer>
+        )
+
+    return (
+        <SidebarComponent />
     )
 }
 
