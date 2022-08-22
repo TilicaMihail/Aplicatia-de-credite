@@ -65,7 +65,7 @@ const Sidebar = () => {
                                 <Link href={item.url} key = {item.name} >
                                     <div 
                                         
-                                        className = {' flex btn-hover cursor-pointer p-2 pl-4  ' + (!(router.pathname === item.url) && ' border-l-[5px] border-white') + (router.pathname === item.url && ' font-bold border-l-[5px] border-black')}
+                                        className = {' flex btn-hover cursor-pointer p-2 pl-4  ' + (!(router.pathname === item.url) && ' border-l-[5px] border-white ') + (router.pathname === item.url && ' font-bold border-l-[5px] border-black')}
                                     > 
                                         <div className = 'text-2xl pr-2 flex items-center justify-center'>
                                             {item.icon}
