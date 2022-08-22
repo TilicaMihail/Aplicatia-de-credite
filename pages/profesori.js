@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
+import Layout from '../../components/layout/Layout'
 
 const Profesori = () => {
     const { user, loading } = useContext(AuthContext)
@@ -12,7 +13,9 @@ const Profesori = () => {
     }, [loading])
 
     return (
-        <div>profesori</div>
+        <Layout>
+            proiecte
+        </Layout>
     )
 }
 

@@ -1,8 +1,12 @@
 import React from 'react'
+import Sidebar from './Sidebar'
 
-const Layout = () => {
+const Layout = ({ children }) => {
     return (
-        <div>Layout</div>
+        <div className = 'flex'>
+            <Sidebar />
+            { children }
+        </div>
     )
 }
 

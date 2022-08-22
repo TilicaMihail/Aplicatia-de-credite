@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
+import Layout from '../../components/layout/Layout'
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Proiecte = () => {
@@ -12,7 +13,9 @@ const Proiecte = () => {
     }, [loading])
     
     return (
-        <div>proiecte</div>
+        <Layout>
+            proiecte
+        </Layout>
     )
 }
 
