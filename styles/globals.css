@@ -11,3 +11,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.btn-hover:hover {
+  opacity: 0.8
+}
+

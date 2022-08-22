@@ -14,7 +14,9 @@ const Proiecte = () => {
     
     return (
         <Layout>
-            proiecte
+            <div className = 'bg-red-500 w-40 h-40 shadow-2xl m-10 '>
+
+            </div>
         </Layout>
     )
 }
