@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
-        <div className = 'flex bg-gray-100 '>
+        <div className = 'flex bg-gray-100 min-h-screen'>
             <div className = 'text-4xl fixed p-3 btn-hover cursor-pointer' onClick = {e => setSidebarOpen(true)}>
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
