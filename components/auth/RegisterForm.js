@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import React, { useContext, useState } from 'react'
-import RoleSelect from '../inputs/RoleSelect'
-import ProfilSelect from '../inputs/ProfilSelect'
-import ClasaSelect from '../inputs/ClasaSelect'
+import RoleSelect from '../ui-components/inputs/RoleSelect'
+import ProfilSelect from '../ui-components/inputs/ProfilSelect'
+import ClasaSelect from '../ui-components/inputs/ClasaSelect'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useRouter } from 'next/router'
-import { info } from 'daisyui/src/colors/colorNames'
 
 const RegisterForm = () => {
     const [role, setRole] = useState({ value: 'elev', label: 'elev' })

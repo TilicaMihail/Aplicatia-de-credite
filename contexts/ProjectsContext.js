@@ -157,6 +157,8 @@ const ProjectsProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchProjects = async () => {
+            if(!user)
+                return 
             setLoading(true);
             await getUnapprovedProjects();
             await getAdvancedProjects({ 
