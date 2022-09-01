@@ -8,7 +8,7 @@ const TotalUsers = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get(`${apiUrl}/stats/users-projects-count`, { withCredentials: true })
+                const data = await axios.get(`${apiUrl}/stats/users-count`, { withCredentials: true })
                 setData(data.data.count)
             } catch (err) {
                 
@@ -20,7 +20,7 @@ const TotalUsers = () => {
     return (
         <div className = 'bg-white rounded-xl w-[24vw] p-2'>
             <div className = 'text-sm sm:text-md md:text-lg font-bold'>
-                Users
+                Utilizatori
             </div>
             <div className = 'text-sm sm:text-md md:text-lg font-bold'>
                 {data} 
