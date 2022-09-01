@@ -1,8 +1,18 @@
 import React from 'react'
 
-const Tabs = () => {
+const Tabs = ({ tabs }) => {
     return (
-        <div>Tabs</div>
+        <div>
+            {
+                tabs.map((tab, index) => {
+                    return (
+                        <div key = {index}>
+                            
+                        </div>
+                    )
+                })
+            }
+        </div>
     )
 }
 

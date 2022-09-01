@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
 import Layout from '../../components/layout/Layout'
-import ProjectsPage from '../../components/proiecte/ProjectsPage/ProjectsPage'
+import ProjectsPage from '../../components/proiecte/projects-page/ProjectsPage'
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Proiecte = () => {
