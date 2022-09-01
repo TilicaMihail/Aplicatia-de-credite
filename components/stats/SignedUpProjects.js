@@ -23,7 +23,7 @@ const SignedUpProjects = () => {
                 Proiecte
             </div>
             <div className = 'text-sm sm:text-md md:text-lg font-bold'>
-                {data} p
+                {data} 
             </div>
         </div>
     )
