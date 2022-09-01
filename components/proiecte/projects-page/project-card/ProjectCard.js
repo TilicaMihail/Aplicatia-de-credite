@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProjectCard = () => {
+const ProjectCard = ({ project}) => {
     return (
         <div>ProjectCard</div>
     )
