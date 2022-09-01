@@ -200,7 +200,7 @@ const ProjectsProvider = ({ children }) => {
             setLoading(false);
         }
         fetchProjects()
-    }, [])
+    }, [user])
 
     return (
         <ProjectsContext.Provider 

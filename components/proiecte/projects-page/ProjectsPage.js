@@ -22,7 +22,7 @@ const ProjectsPage = () => {
         <div>
             <Header />
             <div className = 'p-6'>
-                <div className = 'font-bold sm:text-2xl text-xl p-2'>
+                <div className = 'font-bold sm:text-2xl text-xl p-2 pb-3'>
                     Proiecte
                 </div>
                 <Tabs tabs = {tabs}/>

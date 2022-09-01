@@ -15,3 +15,11 @@ body {
   opacity: 0.8
 }
 
+.card-hover {
+  transition: all 0.3s;
+}
+
+.card-hover:hover {
+  transform: scale(1.02)
+}
+
