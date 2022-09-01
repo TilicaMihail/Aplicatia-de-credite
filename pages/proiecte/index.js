@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
 import Layout from '../../components/layout/Layout'
+import ProjectsPage from '../../components/proiecte/ProjectsPage/ProjectsPage'
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Proiecte = () => {
@@ -14,9 +15,7 @@ const Proiecte = () => {
     
     return (
         <Layout>
-            <div className = 'bg-red-500 w-40 h-40 shadow-2xl m-10 '>
-
-            </div>
+            <ProjectsPage />
         </Layout>
     )
 }
