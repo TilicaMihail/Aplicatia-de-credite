@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react'
 import { apiUrl } from '../apiUrl'
 import { AuthContext } from './AuthContext'
@@ -16,6 +17,8 @@ const ProjectsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     const { user } = useContext(AuthContext)
+
+    const router = useRouter()
 
     const getAllProjects = async (query) => {
 
@@ -153,9 +156,11 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-    const createProject = async () => {
+    const createProject = async (body) => {
         try {
-            
+            const response = await axios.post(`${apiUrl}/projects/`, body, { withCredentials: true})
+            setCreatedProjects(prev => [...prev, response.data])
+            router.push('/proiecte')
         } catch (error) {
             
         }
