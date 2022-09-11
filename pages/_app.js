@@ -5,22 +5,23 @@ import UsersProvider from '../contexts/UsersContext'
 import ProjectsProvider from '../contexts/ProjectsContext'
 import InternshipsProvider from '../contexts/InternshipsContext'
 import SearchProvider from '../contexts/SearchContext'
+import { MantineProvider } from '@mantine/core'
 
 function MyApp({ Component, pageProps }) {
     return (
-        <AuthProvider >
-            <UsersProvider>
-                <ProjectsProvider>
-                    <InternshipsProvider>
-                        <SearchProvider>
-                            <Component {...pageProps} />
-                            <Script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></Script>
-                            <Script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></Script>
-                        </SearchProvider>
-                    </InternshipsProvider>
-                </ProjectsProvider>
-            </UsersProvider>
-        </AuthProvider >
+            <AuthProvider >
+                <UsersProvider>
+                    <ProjectsProvider>
+                        <InternshipsProvider>
+                            <SearchProvider>
+                                <Component {...pageProps} />
+                                <Script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></Script>
+                                <Script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></Script>
+                            </SearchProvider>
+                        </InternshipsProvider>
+                    </ProjectsProvider>
+                </UsersProvider> 
+            </AuthProvider >
     )
 }
 

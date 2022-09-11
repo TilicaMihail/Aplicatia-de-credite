@@ -20,7 +20,7 @@ const CreatedProjects = () => {
     return (
         <div className = 'bg-white rounded-xl w-[24vw] p-2'>
             <div className = 'text-sm sm:text-md md:text-lg font-bold'>
-                Proiecte
+                Proiecte create
             </div>
             <div className = 'text-sm sm:text-md md:text-lg font-bold'>
                 {data} 

@@ -11,7 +11,12 @@ const UsersProvider = ({ children }) => {
     const [loading, setLoading] = useState()
     
     const getStudents = async () => {
-
+        try {
+            const response = await axios.get(`${apiUrl}/users/students`, { withCredentials: true })
+            setStudents(response.data)
+        } catch (error) {
+            
+        }
     }
 
     const getTeachers = async () => {

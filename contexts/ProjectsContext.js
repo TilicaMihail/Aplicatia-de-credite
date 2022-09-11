@@ -6,15 +6,20 @@ import { AuthContext } from './AuthContext'
 export const ProjectsContext = React.createContext({})
 
 const ProjectsProvider = ({ children }) => {
+    const [allProjects, setAllProjects] = useState([])
     const [advancedProjects, setAdvancedProjects] = useState([]);
     const [unapprovedProjects, setUnapprovedProjects] = useState([]);
-    const [voluntieeringProjects, setVoluntieeringProjects] = useState([]);
+    const [volunteeringProjects, setVolunteeringProjects] = useState([]);
     const [createdProjects, setCreatedProjects] = useState([]);
     const [signedUpProjects, setSignedUpProjects] = useState([]);
     const [project, setProject] = useState()
     const [loading, setLoading] = useState(true)
 
     const { user } = useContext(AuthContext)
+
+    const getAllProjects = async (query) => {
+
+    }
 
     const getAdvancedProjects = async (query) => {
         try {
@@ -39,13 +44,13 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-    const getVoluntieeringProjects = async (query) => {
+    const getVolunteeringProjects = async (query) => {
         try {
-            const response = await axios.get(`${apiUrl}/projects/voluntieering`, { 
+            const response = await axios.get(`${apiUrl}/projects/volunteering`, { 
                 params: query, 
                 withCredentials: true
             })
-            setVoluntieeringProjects(response.data)
+            setVolunteeringProjects(response.data)
         } catch (error) {
             return error?.response.data.message
         }
@@ -86,17 +91,47 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-    const approveProject = async () => {
+    const approveProject = async (id) => {
         try {
-            
+            await axios.post(`${apiUrl}/projects/approve/${id}`, {}, { withCredentials: true})
+            setUnapprovedProjects(prev => (prev.filter(item => item._id !== id )))
+            await getAdvancedProjects({ 
+                includeArchived: false, 
+                clase: user.role === 'elev' ? 
+                    [user.clasa] : 
+                    ['9', '10', '11', '12'],
+                profile: user.role === 'elev' ? 
+                    [user.profil]: 
+                    ['A', 'B'],
+            });
+            await getVolunteeringProjects({ 
+                includeArchived: false, 
+                clase: user.role === 'elev' ? 
+                    [user.clasa] : 
+                    ['9', '10', '11', '12'],
+                profile: user.role === 'elev' ? 
+                    [user.profil]: 
+                    ['A', 'B'],
+            });
         } catch (error) {
             
         }
     }
 
-    const signUpToProject = async () => {
+    const signUpToProject = async (id, userId) => {
         try {
-            
+            const response = await axios.post(`${apiUrl}/projects/sign-up/${id}`, { userId: userId }, { withCredentials: true })
+            setAdvancedProjects(prev => (prev.filter(item => item._id !== id )))
+            setVolunteeringProjects(prev => (prev.filter(item => item._id !== id )))
+            await getSignedUpProjects({
+                includeArchived: false,
+                clase: user.role === 'elev' ? 
+                    [user.clasa] : 
+                    ['9', '10', '11', '12'],
+                profile: user.role === 'elev' ? 
+                    [user.profil]: 
+                    ['A', 'B'],
+            }, user._id);
         } catch (error) {
             
         }
@@ -128,7 +163,7 @@ const ProjectsProvider = ({ children }) => {
 
     const updateProject = async (body, id) => {
         try {
-            const response = await axios.put(`${apiUrl}/projects/${id}`, {
+            const response = await axios.put(`${apiUrl}/projects/${id}`, body, {
                 withCredentials: true,
             })
 
@@ -146,7 +181,7 @@ const ProjectsProvider = ({ children }) => {
                 setProject() 
             setAdvancedProjects((prev) => (prev.filter(item => item._id !== id)))
             setUnapprovedProjects((prev) => (prev.filter(item => item._id !== id)))
-            setVoluntieeringProjects((prev) => (prev.filter(item => item._id !== id)))
+            setVolunteeringProjects((prev) => (prev.filter(item => item._id !== id)))
             setCreatedProjects((prev) => (prev.filter(item => item._id !== id)))
             setSignedUpProjects((prev) => (prev.filter(item => item._id !== id)))
         } catch (error) {
@@ -170,7 +205,7 @@ const ProjectsProvider = ({ children }) => {
                     [user.profil]: 
                     ['A', 'B'],
             });
-            await getVoluntieeringProjects({ 
+            await getVolunteeringProjects({ 
                 includeArchived: false, 
                 clase: user.role === 'elev' ? 
                     [user.clasa] : 
@@ -205,17 +240,19 @@ const ProjectsProvider = ({ children }) => {
     return (
         <ProjectsContext.Provider 
             value = {{ 
+                allProjects,
                 advancedProjects, 
                 unapprovedProjects, 
-                voluntieeringProjects,
+                volunteeringProjects,
                 createdProjects, 
                 signedUpProjects,
                 project,
                 loading,
                 setLoading,
+                getAllProjects,
                 getAdvancedProjects,
                 getUnapprovedProjects,
-                getVoluntieeringProjects,
+                getVolunteeringProjects,
                 getCreatedProjects,
                 getSignedUpProjects,
                 getProjectById,
