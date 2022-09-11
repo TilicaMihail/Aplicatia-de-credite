@@ -1,8 +1,29 @@
-import React from 'react'
+import { info } from 'daisyui/src/colors'
+import React, { useContext } from 'react'
+import { ProjectsContext } from '../../../contexts/ProjectsContext'
 
 const SignedUpSection = () => {
+    const { signedUpProjects, loading } = useContext(ProjectsContext)
+
+    if(!loading && !signedUpProjects?.length)
+        return (
+            <div className = 'text-center pt-10 text-lg'>
+                No projects yet!
+            </div>
+        )
+
     return (
-        <div>SignedUpSection</div>
+        <div className = 'flex flex-wrap'>
+            {
+                signedUpProjects?.map((project, index) => {
+                    return (
+                        <div key = {index}>
+                            <ProjectCard project = {project} />
+                        </div>
+                    )
+                })
+            }
+        </div>
     )
 }
 

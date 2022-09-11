@@ -5,7 +5,7 @@ const ProjectCard = ({ project }) => {
     console.log(project)
     return (
         <Link href = {`/proiecte/${project?._id}`}>
-            <div className = 'h-64 w-80 rounded-xl overflow-hidden card-hover cursor-pointer'>
+            <div className = 'h-64 w-80 rounded-xl overflow-hidden card-hover cursor-pointer m-2'>
                 <img src = {
                     project.img || 'http://unblast.com/wp-content/uploads/2020/05/Back-to-School-Illustration.jpg'} 
                     className = 'object-cover h-52 w-full' 
