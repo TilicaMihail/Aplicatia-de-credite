@@ -17,6 +17,7 @@ body {
 
 .card-hover {
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .card-hover:hover {
