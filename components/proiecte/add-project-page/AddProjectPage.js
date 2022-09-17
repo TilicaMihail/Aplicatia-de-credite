@@ -71,7 +71,12 @@ const AddProjectPage = () => {
 
     useEffect(() => {
         const getOptions = async () => {
-            await getAllProjects()
+            await getAllProjects({
+                includeArchived: false,
+                clase: [9, 10, 11, 12],
+                profile: ["A", "B"]
+            })
+            console.log(allProjects)
             setProjectsOptions(allProjects.map((project) => {
                 return ({
                     label: project?.name,
@@ -79,7 +84,7 @@ const AddProjectPage = () => {
                 })
             }))
         }
-        getOptions()
+        getOptions() 
     }, [])
 
     return (
@@ -100,7 +105,7 @@ const AddProjectPage = () => {
                     <textarea className = ' resize-none outline-none p-2 h-24 text-sm lg:text-base' required = "true" value = {description} onChange = {e => setDescription(e.target.value)} placeholder = "Descriere proiect"/>
                     
                     <div className = 'flex p-2'>
-                        <input type="checkbox" checked={advanced} onChange = {() => setAdvanced(!advanced)} class="checkbox" /> 
+                        <input type="checkbox" checked={advanced} onChange = {() => setAdvanced(!advanced)} className="checkbox" /> 
                         <div className = 'pl-2'>
                             Proiectul {!advanced && 'nu ' } este de tip avansat
                         </div>
@@ -145,7 +150,7 @@ const AddProjectPage = () => {
                             </div>
                             <Select 
                                 options = {profileOptions}
-                                onChange = {val => setProfile(val.value)}
+                                onChange = {val => setProfile(val.map(val => val.value))}
                                 isMulti
                                 closeMenuOnSelect = {false}
                             />
@@ -157,6 +162,7 @@ const AddProjectPage = () => {
                             <Select 
                                 options = {projectsOptions}
                                 isMulti
+                                onChange = {val => setSignUpDependsOn(val.map(val => val.value))}
                                 closeMenuOnSelect = {false}
                             />
                         </div>

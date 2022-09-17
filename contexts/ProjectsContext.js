@@ -21,7 +21,12 @@ const ProjectsProvider = ({ children }) => {
     const router = useRouter()
 
     const getAllProjects = async (query) => {
+        try {
+            const projects = await axios.get(`${apiUrl}/projects/`, { withCredentials: true, params: query })
+            await setAllProjects(projects.data)
+        } catch (error) { 
 
+        }
     }
 
     const getAdvancedProjects = async (query) => {

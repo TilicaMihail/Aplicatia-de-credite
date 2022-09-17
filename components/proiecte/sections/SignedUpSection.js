@@ -1,6 +1,7 @@
 import { info } from 'daisyui/src/colors'
 import React, { useContext } from 'react'
 import { ProjectsContext } from '../../../contexts/ProjectsContext'
+import ProjectCard from '../projects-page/project-card/ProjectCard'
 
 const SignedUpSection = () => {
     const { signedUpProjects, loading } = useContext(ProjectsContext)
