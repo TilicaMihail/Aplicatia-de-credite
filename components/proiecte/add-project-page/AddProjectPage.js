@@ -6,6 +6,18 @@ import { ProjectsContext } from '../../../contexts/ProjectsContext';
 import { NumberInput } from '@mantine/core';
 import ImagePicker from '../../ui-components/modals/ImagePicker';
 
+const claseOptions = [
+    { label: 9, value: 9 },
+    { label: 10, value: 10 },
+    { label: 11, value: 11 },
+    { label: 12, value: 12 },
+]
+
+const profileOptions = [
+    { label: "A", value: "A" },
+    { label: "B", value: "B" },
+]
+
 const AddProjectPage = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -15,7 +27,9 @@ const AddProjectPage = () => {
     const [maxNumberStudents, setMaxNumberStudents] = useState(10000)
     const [maxNumberCredits, setMaxNumberCredits] = useState(100)
     const [signUpDependsOn, setSignUpDependsOn] = useState({})
-    const [options, setOptions] = useState([])
+    const [clase, setClase] = useState()
+    const [profile, setProfile] = useState()
+    const [projectsOptions, setProjectsOptions] = useState([])
     const [formSent, setFormSent] = useState(false)
     const [error, setError] = useState('')
     const [advanced, setAdvanced] = useState(true)
@@ -50,14 +64,19 @@ const AddProjectPage = () => {
             maxNumberCredits: maxNumberCredits,
             signUpDependsOn: signUpDependsOn,
             advanced: advanced,
+            clase: clase?.length ? clase : undefined,
+            profile: profile?.length ? profile : undefined,
         }))
     }
 
     useEffect(() => {
         const getOptions = async () => {
             await getAllProjects()
-            setOptions(allProjects.map((project) => {
-
+            setProjectsOptions(allProjects.map((project) => {
+                return ({
+                    label: project?.name,
+                    value: project?._id,
+                })
             }))
         }
         getOptions()
@@ -111,10 +130,32 @@ const AddProjectPage = () => {
                         </div>
                         <div className = 'p-2 pt-3'>
                             <div className = 'text-sm'>
+                                Clase
+                            </div>
+                            <Select 
+                                options = {claseOptions}
+                                onChange = {val => setClase(val.map(val => val.value))}
+                                isMulti
+                                closeMenuOnSelect = {false}
+                            />
+                        </div>
+                        <div className = 'p-2 pt-3'>
+                            <div className = 'text-sm'>
+                                Profile
+                            </div>
+                            <Select 
+                                options = {profileOptions}
+                                onChange = {val => setProfile(val.value)}
+                                isMulti
+                                closeMenuOnSelect = {false}
+                            />
+                        </div>
+                        <div className = 'p-2 pt-3'>
+                            <div className = 'text-sm'>
                                 Inscrierea depinde de participarea la
                             </div>
                             <Select 
-                                options = {options}
+                                options = {projectsOptions}
                                 isMulti
                                 closeMenuOnSelect = {false}
                             />
