@@ -14,7 +14,7 @@ const DetaliiProiect = () => {
     
     return (
         <Layout>
-            proiecte
+            <ProjectPage />
         </Layout>
     )
 }

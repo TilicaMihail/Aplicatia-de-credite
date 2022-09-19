@@ -2,9 +2,11 @@ import Link from 'next/link'
 import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../../../contexts/AuthContext'
+import { ProjectsContext } from '../../../../contexts/ProjectsContext'
 
 const ProjectCard = ({ project }) => {
     const { user } = useContext(AuthContext)
+    const { signUpToProject } = useContext(ProjectsContext)
 
     console.log(project)
 
