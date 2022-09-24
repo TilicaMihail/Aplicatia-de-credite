@@ -2,16 +2,22 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { ProjectsContext } from '../../../contexts/ProjectsContext'
-import { Transition } from '@mantine/core';
+import { NumberInput, Transition } from '@mantine/core';
 import { AuthContext } from '../../../contexts/AuthContext';
+import Modal from '../../ui-components/modals/Modal';
 
 const ProjectPage = () => {
     const { project, getProjectById } = useContext(ProjectsContext)
     const { user } = useContext(AuthContext)
     const [descriptionOpen, setDescriptionOpen] = useState(false)
     const [crediteModalOpen, setCrediteModalOpen] = useState(false)
+    const [addCrediteInput, setAddCrediteInput] = useState(0)
     const router = useRouter()
     const { id } = router.query
+
+    const handleAddCredite = () => {
+        
+    }
 
     useEffect(() => {
         if(!id) return 
@@ -66,7 +72,7 @@ const ProjectPage = () => {
                     <div className = 'font-bold sm:text-2xl text-xl'>
                         Elevi
                     </div>
-                    <div className = 'font-bold sm:text-lg text-white bg-sky-400 sm:p-2 p-1 rounded-xl card-hover'>
+                    <div className = 'font-bold sm:text-lg text-white bg-sky-400 sm:p-2 p-1 rounded-lg card-hover'>
                         Adauga elevi
                     </div>
                 </div>
@@ -91,7 +97,7 @@ const ProjectPage = () => {
                                                 </div>
                                                 {student?.firstName + " " + student?.lastName}
                                             </div>
-                                            <div className = {'flex items-center '  + (project?.author === user?._id && ' hover:font-bold card-hover')} onClick = {e => project?.author === user?._id ? setCrediteModalOpen(true) : setCrediteModalOpen(false)}>
+                                            <div className = {'flex items-center '  + (project?.author === user?._id && ' hover:font-bold card-hover')} onClick = {e => { project?.author !== user?._id ? setCrediteModalOpen(student?._id)  : setCrediteModalOpen(false)}} >
                                                 <div className = 'text-lg'>
                                                     {student?.credite}
                                                 </div>
@@ -105,11 +111,27 @@ const ProjectPage = () => {
                             </div>
                         }
                     </div>
-                    <div className = 'w-full flex justify-end'>
-
-                    </div>
                 </div>
             </div>
+            <Modal visible = {crediteModalOpen} setVisible = {setCrediteModalOpen} >
+                <div onClick = {e => e.stopPropagation()} className = 'w-[50%] h-[200px] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
+                    <div className = 'text-2xl font-bold'>
+                        Adauga credite
+                    </div>
+                    <div className = 'flex gap-2 items-center'>
+                        <NumberInput 
+                            className = 'grow'
+                            value = {addCrediteInput} 
+                            onChange = {value => setAddCrediteInput(value)} 
+                            max = {project?.maxNumberCredits || 100}
+                            min={0}
+                        />
+                        <div className = 'p-2 bg-sky-400 card-hover rounded text-white font-bold' onClick = {handleAddCredite}>
+                            Salveaza creditele
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }
