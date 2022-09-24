@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import Layout from '../../components/layout/Layout'
+import ProjectPage from '../../components/proiecte/project-details-page/ProjectPage'
 
 const DetaliiProiect = () => {
     const { user, loading } = useContext(AuthContext)
