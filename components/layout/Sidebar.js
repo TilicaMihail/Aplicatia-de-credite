@@ -5,47 +5,47 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext';
 import useWindowSize from '../../hooks/useWindowSize';
 
-const sidebarData = [
-    {
-        name: 'Proiecte',
-        url: '/proiecte',
-        icon: <ion-icon name="folder-outline"></ion-icon>
-    },
-    {
-        name: 'Internship-uri',
-        url: '/internships',
-        icon: <ion-icon name="ribbon-outline"></ion-icon>
-    },
-    {
-        name: 'Elevi',
-        url: '/elevi',
-        icon: <ion-icon name="school-outline"></ion-icon>
-    },
-    {
-        name: 'Adauga proiect',
-        url: '/adauga-proiect',
-        icon: <ion-icon name="add-circle-outline"></ion-icon>
-    },
-    {
-        name: 'Adauga internship',
-        url: '/adauga-internship',
-        icon: <ion-icon name="cube-outline"></ion-icon>
-    },
-    {
-        name: 'Contul meu',
-        url: '/profil',
-        icon: <ion-icon name="person-outline"></ion-icon>
-    },
-    {
-        name: 'Setari',
-        url: '/setari',
-        icon: <ion-icon name="settings-outline"></ion-icon>
-    },
-]
-
 const SidebarComponent = ({ smallScreen}) => {
     const router = useRouter();
     const { user } = useContext(AuthContext)
+
+    const sidebarData = [
+        {
+            name: 'Proiecte',
+            url: '/proiecte',
+            icon: <ion-icon name="folder-outline"></ion-icon>
+        },
+        {
+            name: 'Internship-uri',
+            url: '/internships',
+            icon: <ion-icon name="ribbon-outline"></ion-icon>
+        },
+        {
+            name: 'Elevi',
+            url: '/elevi',
+            icon: <ion-icon name="school-outline"></ion-icon>
+        },
+        {
+            name: 'Adauga proiect',
+            url: '/adauga-proiect',
+            icon: <ion-icon name="add-circle-outline"></ion-icon>
+        },
+        {
+            name: 'Adauga internship',
+            url: '/adauga-internship',
+            icon: <ion-icon name="cube-outline"></ion-icon>
+        },
+        {
+            name: 'Profil',
+            url: `/profil/${user?._id}`,
+            icon: <ion-icon name="person-outline"></ion-icon>
+        },
+        {
+            name: 'Setari',
+            url: '/setari',
+            icon: <ion-icon name="settings-outline"></ion-icon>
+        },
+    ]
 
     return (
         <div className = {'h-screen w-60 shadow-lg bg-white flex flex-col justify-between ' + (!smallScreen && ' fixed')}>
@@ -67,7 +67,7 @@ const SidebarComponent = ({ smallScreen}) => {
                                 <Link href={item.url} key = {item.name} >
                                     <div 
                                         
-                                        className = {' flex btn-hover cursor-pointer p-2 pl-4  ' + (!(router.pathname === item.url) && ' border-l-[5px] border-white ') + (router.pathname === item.url && ' font-bold border-l-[5px] border-black')}
+                                        className = {' flex btn-hover cursor-pointer p-2 pl-4  ' + (!(router.pathname?.includes(item.url)) && ' border-l-[5px] border-white ') + (router.pathname?.includes(item.url) && ' font-bold border-l-[5px] border-black')}
                                     > 
                                         <div className = 'text-2xl pr-2 flex items-center justify-center'>
                                             {item.icon}
