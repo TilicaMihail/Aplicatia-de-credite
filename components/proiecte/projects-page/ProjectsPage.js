@@ -11,13 +11,23 @@ import CreatedSection from '../sections/CreatedSection'
 const ProjectsPage = () => {
     const { user } = useContext(AuthContext)
     
-    const tabs = [
-        { label: 'Avansat', component: <AdvancedSection /> },
-        { label: 'Optionale modulare', component: <VluntieeringSection /> },
-        { label: 'Neaprobate', component: <UnapprovedSection />},
-        { label: 'Proiectele mele', component: <SignedUpSection />},
-        { label: 'Proiecte create', component: <CreatedSection />}
-    ]
+    const tabs = (
+        user?.role === 'admin' ? 
+            [
+                { label: 'Avansat', component: <AdvancedSection /> },
+                { label: 'Optionale modulare', component: <VluntieeringSection /> },
+                { label: 'Neaprobate', component: <UnapprovedSection />},
+                { label: 'Proiectele mele', component: <SignedUpSection />},
+                { label: 'Proiecte create', component: <CreatedSection />}
+            ]
+        :
+            [
+                { label: 'Avansat', component: <AdvancedSection /> },
+                { label: 'Optionale modulare', component: <VluntieeringSection /> },
+                { label: 'Proiectele mele', component: <SignedUpSection />},
+                { label: 'Proiecte create', component: <CreatedSection />}
+            ]
+    )
 
     return (
         <div>
