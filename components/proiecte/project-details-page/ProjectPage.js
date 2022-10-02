@@ -7,7 +7,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import Modal from '../../ui-components/modals/Modal';
 
 const ProjectPage = () => {
-    const { project, getProjectById } = useContext(ProjectsContext)
+    const { project, getProjectById, gradeUser } = useContext(ProjectsContext)
     const { user } = useContext(AuthContext)
     const [descriptionOpen, setDescriptionOpen] = useState(false)
     const [crediteModalOpen, setCrediteModalOpen] = useState(false)
@@ -16,13 +16,17 @@ const ProjectPage = () => {
     const { id } = router.query
 
     const handleAddCredite = () => {
-        
+        console.log(addCrediteInput)
+        gradeUser(project?._id, crediteModalOpen, addCrediteInput)
+        setCrediteModalOpen(false)
     }
 
     useEffect(() => {
         if(!id) return 
         getProjectById(router.query.id)
     }, [id])
+
+    console.log(project?.authorName)
 
     return (
         <div className = {'p-8 pt-10'}>
@@ -44,9 +48,11 @@ const ProjectPage = () => {
                         src = { project?.img } 
                         alt = '' 
                     />
-                    <div className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white right-5 btn btn-info'>
-                        <ion-icon name="settings-sharp"></ion-icon>
-                    </div>
+                    {(project?.author === user?._id) && 
+                        <div className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white right-5 btn btn-info'>
+                            <ion-icon name="settings-sharp"></ion-icon>
+                        </div>
+                    }
                     <div className = 'bg-white border-t p-3 rounded-b-xl '>
                         <div className = 'flex w-full items-center justify-between'>
                             <div className = 'lg:text-3xl sm:text-2xl text-xl font-bold'>
@@ -72,18 +78,30 @@ const ProjectPage = () => {
                     <div className = 'font-bold sm:text-2xl text-xl'>
                         Elevi
                     </div>
-                    <div className = 'font-bold sm:text-lg text-white bg-sky-400 sm:p-2 p-1 rounded-lg card-hover'>
-                        Adauga elevi
-                    </div>
+                    {
+                        (project?.author === user?._id && !(user?.role === 'elev')) &&
+                        <div className = 'font-bold sm:text-lg text-white bg-sky-400 sm:p-2 p-1 rounded-lg card-hover'>
+                            Adauga elevi
+                        </div>
+                    }
                 </div>
                 <div className = 'w-full shadow-lg rounded-xl mt-3 bg-white p-3'>
                     <div className = 'flex items-center justify-between border-b'>
                         <div className = 'text-lg font-bold pl-2'>
                             Nume
                         </div>
-                        <div className = 'text-lg font-bold pr-2'>
-                            Credite
+                        <div className = 'flex items-center gap-4 text-lg font-bold pr-2'>
+                            <div className = ''>
+                                Credite
+                            </div>
+                            {
+                                project?.author === user?._id && 
+                                <div className = ''>
+                                    Actiuni
+                                </div>
+                            }
                         </div>
+
                     </div>
                     <div>
                         {
@@ -92,15 +110,26 @@ const ProjectPage = () => {
                                     return (
                                         <div className = 'flex items-center justify-between border-b p-2 ' key = {index}>
                                             <div className = 'flex items-center'>
-                                                <div className = 'flex text-2xl items-center justify-center text-red-500 pr-2 cursor-pointer hover:text-red-700'>
-                                                    <ion-icon name="trash-sharp"></ion-icon>
-                                                </div>
                                                 {student?.firstName + " " + student?.lastName}
                                             </div>
-                                            <div className = {'flex items-center '  + (project?.author === user?._id && ' hover:font-bold card-hover')} onClick = {e => { project?.author !== user?._id ? setCrediteModalOpen(student?._id)  : setCrediteModalOpen(false)}} >
-                                                <div className = 'text-lg'>
+                                            <div className = {'flex items-center '}  >
+                                                <div className = 'text-lg pr-1' >
                                                     {student?.credite}
                                                 </div>
+                                                {
+                                                    project?.author === user?._id && 
+                                                    <>
+                                                        <div 
+                                                            onClick = {e => { project?.author === user?._id ? setCrediteModalOpen(student?._id)  : setCrediteModalOpen(false)}}
+                                                            className = 'flex pl-4 text items-center justify-center text-white bg-sky-400 p-1 rounded mr-2 cursor-pointer card-hover hover:bg-sky-500'
+                                                        >
+                                                            <ion-icon name="pencil"></ion-icon>
+                                                        </div>
+                                                        <div className = 'flex text-2xl items-center justify-center text-red-500 pr- cursor-pointer hover:text-red-700'>
+                                                            <ion-icon name="trash-sharp"></ion-icon>
+                                                        </div>
+                                                    </>
+                                                }
                                             </div>
                                         </div>
                                     )

@@ -145,9 +145,10 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-    const gradeUser = async () => {
+    const gradeUser = async (projectId, userId, credite) => {
         try {
-            
+            const response = await axios.post(`${apiUrl}/projects/grade/${projectId}`, { userId: userId, credite: credite }, { withCredentials: true })
+            setProject(response.data)
         } catch (error) {
             
         }
