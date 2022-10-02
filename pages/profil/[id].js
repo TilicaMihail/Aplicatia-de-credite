@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import Layout from '../components/layout/Layout'
 
-const Profil = () => {
+const PaginaProfil = () => {
     const { user, loading } = useContext(AuthContext)
     const router = useRouter()
 
@@ -19,4 +19,4 @@ const Profil = () => {
     )
 }
 
-export default Profil
+export default PaginaProfil
