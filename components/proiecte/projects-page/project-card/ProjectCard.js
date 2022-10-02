@@ -12,18 +12,24 @@ const ProjectCard = ({ project }) => {
         <Link href = {`/proiecte/${project?._id}`}>
             <div className = 'h-70 w-96 rounded-xl overflow-hidden card-hover cursor-pointer m-2 shadow-lg relative'>
                 {   
-                    project?.students?.[user?._id]?.credite ?
+                    project?.students?.[user?._id]?.credite !== undefined ?
                     <div className = 'transition-all h-10 w-40 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
                         { project?.students?.[user?._id]?.credite }
                     </div> :
                     !project?.approved && project?.author !== user?._id ?
-                    <div className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
+                    <div 
+                        onClick = {e => { e.stopPropagation(); approveProject(project?._id)}}
+                        className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'
+                    >
                         Aproba
                     </div> :
                     project?.author === user?._id || user?.role !== 'elev' ?
                     <div></div> 
                     :
-                    <div className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
+                    <div
+                        onClick = {(e) => {e.stopPropagation(); signUpToProject(project?._id)}} 
+                        className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'
+                    >
                         Inscrie-te 
                     </div>
                 }
