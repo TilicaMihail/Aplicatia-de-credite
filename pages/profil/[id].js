@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
-import { AuthContext } from '../contexts/AuthContext'
-import Layout from '../components/layout/Layout'
+import { AuthContext } from '../../contexts/AuthContext'
+import Layout from '../../components/layout/Layout'
 
 const PaginaProfil = () => {
     const { user, loading } = useContext(AuthContext)
@@ -14,7 +14,7 @@ const PaginaProfil = () => {
 
     return (
         <Layout>
-            proiecte
+            profil
         </Layout>
     )
 }
