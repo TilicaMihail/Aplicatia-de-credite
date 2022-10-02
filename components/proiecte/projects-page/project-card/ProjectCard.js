@@ -6,9 +6,7 @@ import { ProjectsContext } from '../../../../contexts/ProjectsContext'
 
 const ProjectCard = ({ project }) => {
     const { user } = useContext(AuthContext)
-    const { signUpToProject } = useContext(ProjectsContext)
-
-    console.log(project)
+    const { signUpToProject, approveProject } = useContext(ProjectsContext)
 
     return (
         <Link href = {`/proiecte/${project?._id}`}>
@@ -18,8 +16,13 @@ const ProjectCard = ({ project }) => {
                     <div className = 'transition-all h-10 w-40 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
                         { project?.students?.[user?._id]?.credite }
                     </div> :
+                    !project?.approved && project?.author !== user?._id ?
+                    <div className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
+                        Aproba
+                    </div> :
                     project?.author === user?._id || user?.role !== 'elev' ?
-                    <div></div> :
+                    <div></div> 
+                    :
                     <div className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
                         Inscrie-te 
                     </div>
