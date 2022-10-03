@@ -98,7 +98,7 @@ const AddProjectPage = () => {
                 </div>
                 <div className = 'flex flex-col p-3'>
                     <input className = 'outline-none text-xl lg:text-3xl md:text-2xl p-2' required = "true" value = {name} onChange = {e => setName(e.target.value)} placeholder = "Nume proiect"/>
-                    <textarea className = ' resize-none outline-none p-2 h-24 text-sm lg:text-base' required = "true" value = {description} onChange = {e => setDescription(e.target.value)} placeholder = "Descriere proiect"/>
+                    <textarea className = ' resize-none outline-none p-2 h-24 text-sm lg:text-base' value = {description} onChange = {e => setDescription(e.target.value)} placeholder = "Descriere proiect"/>
                     
                     <div className = 'flex p-2'>
                         <input type="checkbox" checked={advanced} onChange = {() => setAdvanced(!advanced)} className="checkbox" /> 
