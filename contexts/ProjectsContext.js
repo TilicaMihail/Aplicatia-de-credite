@@ -37,7 +37,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setAdvancedProjects(response.data)
         } catch (error) {
-            return error?.response?.data.message
+            return error?.response?.data?.message
         }
     }
 
@@ -48,7 +48,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setUnapprovedProjects(response.data)
         } catch (error) {
-            return error?.response?.data.message
+            return error?.response?.data?.message
         }
     }
 
@@ -60,7 +60,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setVolunteeringProjects(response.data)
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
 
@@ -72,7 +72,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setCreatedProjects(response.data)
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
 
@@ -84,7 +84,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setSignedUpProjects(response.data)
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
 
@@ -95,7 +95,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setProject(response.data)
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
 
@@ -154,9 +154,10 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-    const markStudentPresent = async () => {
+    const removeStudent = async (projectId, userId) => {
         try {
-            
+            const response = await axios.put(`${apiUrl}/projects/remove-student/${projectId}`, { userId: userId }, { withCredentials: true })
+            setProject(response.data)
         } catch (error) {
             
         }
@@ -270,7 +271,7 @@ const ProjectsProvider = ({ children }) => {
                 approveProject,
                 signUpToProject,
                 gradeUser,
-                markStudentPresent,
+                removeStudent,
                 createProject,
                 updateProject,
                 deleteProject,

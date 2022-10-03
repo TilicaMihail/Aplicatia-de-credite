@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
             const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
     
@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
             const res = await axios.post(`${apiUrl}/auth/register`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
     

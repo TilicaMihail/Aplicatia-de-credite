@@ -7,11 +7,12 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import Modal from '../../ui-components/modals/Modal';
 
 const ProjectPage = () => {
-    const { project, getProjectById, gradeUser } = useContext(ProjectsContext)
+    const { project, getProjectById, gradeUser, removeStudent } = useContext(ProjectsContext)
     const { user } = useContext(AuthContext)
     const [descriptionOpen, setDescriptionOpen] = useState(false)
     const [crediteModalOpen, setCrediteModalOpen] = useState(false)
     const [addCrediteInput, setAddCrediteInput] = useState(0)
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
     const router = useRouter()
     const { id } = router.query
 
@@ -121,11 +122,13 @@ const ProjectPage = () => {
                                                     <>
                                                         <div 
                                                             onClick = {e => { project?.author === user?._id ? setCrediteModalOpen(student?._id)  : setCrediteModalOpen(false)}}
-                                                            className = 'flex pl-4 text items-center justify-center text-white bg-sky-400 p-1 rounded mr-2 cursor-pointer card-hover hover:bg-sky-500'
+                                                            className = 'flex ml-4 text items-center justify-center text-white bg-sky-400 p-1 rounded mr-2 cursor-pointer card-hover hover:bg-sky-500'
                                                         >
                                                             <ion-icon name="pencil"></ion-icon>
                                                         </div>
-                                                        <div className = 'flex text-2xl items-center justify-center text-red-500 pr- cursor-pointer hover:text-red-700'>
+                                                        <div
+                                                            onClick = {e => { project?.author === user?._id ? removeStudent(project?._id, student?._id)  : setDeleteModalOpen(false)}} 
+                                                            className = 'flex text-2xl items-center justify-center text-red-500 pr- cursor-pointer hover:text-red-700'>
                                                             <ion-icon name="trash-sharp"></ion-icon>
                                                         </div>
                                                     </>

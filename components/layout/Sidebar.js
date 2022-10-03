@@ -58,12 +58,12 @@ const SidebarComponent = ({ smallScreen}) => {
         <div className = {'h-screen w-60 shadow-lg bg-white flex flex-col justify-between ' + (!smallScreen && ' fixed')}>
             <div>
                 <div className = 'flex flex-col items-center justify-center pt-10 pb-8 '>
-                    <div className = 'rounded-full overlfow-hidden bg-black h-20 w-20'>
-
+                    <div className = ''>
+                        <img src = {'https://festivalsfr.ro/wp-content/uploads/2020/08/Logo-Liceul-Varlaam_orizontal-01-300x136.png'} alt = '' className = 'rounded-full overlfow-hidden h-20 w- overflow-hidden' />
                     </div>
-                    <div className = 'font-bold text-lg pt-2'>
+                    {/* <div className = 'font-bold text-lg pt-2'>
                         Aplicatia de credite
-                    </div>
+                    </div> */}
                 </div>
                 <div>
                     {
