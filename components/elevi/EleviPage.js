@@ -5,11 +5,7 @@ import Elev from './Elev'
 
 const EleviPage = () => {
 
-    const { students, getStudents } = useContext(UsersContext)
-
-    useEffect(() => {
-        getStudents()
-    }, [])
+    const { students } = useContext(UsersContext)
 
     return (
         <div>

@@ -40,7 +40,7 @@ const UsersProvider = ({ children }) => {
     }
 
     useEffect(() => {
-
+        getStudents()
     }, [])
 
     return (

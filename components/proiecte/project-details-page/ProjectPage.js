@@ -5,14 +5,23 @@ import { ProjectsContext } from '../../../contexts/ProjectsContext'
 import { NumberInput, Transition } from '@mantine/core';
 import { AuthContext } from '../../../contexts/AuthContext';
 import Modal from '../../ui-components/modals/Modal';
+import Select from 'react-select';
+import { UsersContext } from '../../../contexts/UsersContext';
+import { info } from 'daisyui/src/colors/colorNames';
 
 const ProjectPage = () => {
-    const { project, getProjectById, gradeUser, removeStudent } = useContext(ProjectsContext)
+    const { project, getProjectById, gradeUser, removeStudent, signUpToProject } = useContext(ProjectsContext)
+    const { students } = useContext(UsersContext)
     const { user } = useContext(AuthContext)
     const [descriptionOpen, setDescriptionOpen] = useState(false)
     const [crediteModalOpen, setCrediteModalOpen] = useState(false)
     const [addCrediteInput, setAddCrediteInput] = useState(0)
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+    const [addStudentsModalOpen, setAddStudentsModalOpen] = useState(false)
+    const [studentsOptions, setStudentsOptions] = useState([])
+    const [studentsToAdd, setStudentsToAdd] = useState([])
+    const [addStudentsLoading, setAddStudentsLoading] = useState(false)
+
     const router = useRouter()
     const { id } = router.query
 
@@ -22,15 +31,28 @@ const ProjectPage = () => {
     }
 
     const handleRemoveStudent = () => {
-        console.log(deleteModalOpen, 'setp')
         removeStudent(project?._id, deleteModalOpen)
         setDeleteModalOpen(false)
+    }
+
+    const handleAddStudents = async () => {
+        if(addStudentsLoading) return
+        setAddStudentsLoading(true)
+        for(const i in studentsToAdd) {
+            await signUpToProject(project?._id, studentsToAdd[i])
+        }
+        await getProjectById(router.query.id)
+        setAddStudentsModalOpen(false)
+        setStudentsToAdd([])
+        setAddStudentsLoading(false) 
     }
 
     useEffect(() => {
         if(!id) return 
         getProjectById(router.query.id)
-    }, [id])
+        if(!students?.length) return 
+        setStudentsOptions(students.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
+    }, [id, students])
 
     return (
         <div className = {'p-8 pt-10'}>
@@ -84,7 +106,7 @@ const ProjectPage = () => {
                     </div>
                     {
                         (project?.author === user?._id && !(user?.role === 'elev')) &&
-                        <div className = 'font-bold sm:text-lg text-white bg-sky-400 sm:p-2 p-1 rounded-lg card-hover'>
+                        <div className = 'font-bold sm:text-lg text-white bg-sky-400 sm:p-2 p-1 rounded-lg card-hover' onClick = {e => setAddStudentsModalOpen(true)}>
                             Adauga elevi
                         </div>
                     }
@@ -148,6 +170,28 @@ const ProjectPage = () => {
                     </div>
                 </div>
             </div>
+            <Modal visible = {addStudentsModalOpen} setVisible = {setAddStudentsModalOpen} >
+                <div onClick = {e => e.stopPropagation()} className = 'w-[50%] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
+                    <div className = 'text-2xl font-bold'>
+                        Adauga elevi
+                    </div>
+                    <div className = 'pt-4 pb-6'>
+                            <Select 
+                                options = {studentsOptions}
+                                onChange = {val => setStudentsToAdd(val.map(val => val.value))}
+                                isMulti
+                            />
+                    </div>
+                    <div className = 'flex gap-2 items-center justify-end'>
+                        <div className = {'p-2 bg-red-400 card-hover w-20 text-center rounded text-white font-bold' + (addStudentsLoading && ' bg-gray-400')} onClick = {e => {if(!addStudentsLoading)setAddStudentsModalOpen(false)}}>
+                            Cancel
+                        </div>
+                        <div className = {'p-2 bg-sky-400 w-20 text-center card-hover rounded text-white font-bold ' + (addStudentsLoading && ' loading btn btn-info')} onClick = {handleAddStudents}>
+                            Ok
+                        </div>
+                    </div>
+                </div>
+            </Modal>
             <Modal visible = {deleteModalOpen} setVisible = {setDeleteModalOpen} >
                 <div onClick = {e => e.stopPropagation()} className = 'w-[50%] h-[130px] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
                     <div className = 'text-2xl font-bold text-red-400'>
