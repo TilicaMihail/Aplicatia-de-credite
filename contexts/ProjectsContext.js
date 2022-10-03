@@ -173,12 +173,12 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-    const updateProject = async (body, id) => {
+    const updateProject = async (id, body) => {
         try {
             const response = await axios.put(`${apiUrl}/projects/${id}`, body, {
                 withCredentials: true,
             })
-
+            return response.data
         } catch (error) {
             return error?.response.data.message
         }
@@ -262,7 +262,7 @@ const ProjectsProvider = ({ children }) => {
                 loading,
                 setLoading,
                 getAllProjects,
-                getAdvancedProjects,
+                getAdvancedProjects, 
                 getUnapprovedProjects,
                 getVolunteeringProjects,
                 getCreatedProjects,
@@ -275,6 +275,7 @@ const ProjectsProvider = ({ children }) => {
                 createProject,
                 updateProject,
                 deleteProject,
+                setProject,
             }}
         >
             { children }

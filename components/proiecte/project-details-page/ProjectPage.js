@@ -7,10 +7,10 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import Modal from '../../ui-components/modals/Modal';
 import Select from 'react-select';
 import { UsersContext } from '../../../contexts/UsersContext';
-import { info } from 'daisyui/src/colors/colorNames';
+import ImagePicker from '../../ui-components/modals/ImagePicker';
 
 const ProjectPage = () => {
-    const { project, getProjectById, gradeUser, removeStudent, signUpToProject } = useContext(ProjectsContext)
+    const { project, getProjectById, setProject, gradeUser, removeStudent, signUpToProject, updateProject } = useContext(ProjectsContext)
     const { students } = useContext(UsersContext)
     const { user } = useContext(AuthContext)
     const [descriptionOpen, setDescriptionOpen] = useState(false)
@@ -21,6 +21,10 @@ const ProjectPage = () => {
     const [studentsOptions, setStudentsOptions] = useState([])
     const [studentsToAdd, setStudentsToAdd] = useState([])
     const [addStudentsLoading, setAddStudentsLoading] = useState(false)
+    const [settingsModalOpen, setSettingsModalOpen] = useState(false)
+    const [imgOptionsModalOpen, setImgOptionsModalOpen] = useState(false)
+    const [settingsOptions, setSettingsOptions] = useState({})
+    const [imgUrl, setImgUrl] = useState('')
 
     const router = useRouter()
     const { id } = router.query
@@ -47,6 +51,13 @@ const ProjectPage = () => {
         setAddStudentsLoading(false) 
     }
 
+    const handleSetImgUrl = async (val) => {
+        const p = await updateProject(project?._id, { img: val})
+        console.log(p)
+        setProject(p)
+        setImgUrl(val)
+    }
+
     useEffect(() => {
         if(!id) return 
         getProjectById(router.query.id)
@@ -56,6 +67,7 @@ const ProjectPage = () => {
 
     return (
         <div className = {'p-8 pt-10'}>
+            <ImagePicker visible = {imgOptionsModalOpen} setVisible = {setImgOptionsModalOpen} imgUrl = {imgUrl} setImgUrl = {handleSetImgUrl} />
             {
                 project?.advanced === false && project?.author === user?._id && 
                 <div className = 'w-full h-20 bg-blue-400 mb-5 rounded-xl flex items-center justify-between p-5'>
@@ -75,9 +87,17 @@ const ProjectPage = () => {
                         alt = '' 
                     />
                     {(project?.author === user?._id) && 
-                        <div className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white right-5 btn btn-info'>
-                            <ion-icon name="settings-sharp"></ion-icon>
-                        </div>
+                        <>
+                            <div className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white left-5 btn btn-info'>
+                                <ion-icon name="settings-sharp"></ion-icon>
+                            </div>
+                            <div 
+                                onClick = {e => setImgOptionsModalOpen(true)}
+                                className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white right-5 btn btn-info'
+                            >
+                                <ion-icon name="image-outline"></ion-icon>
+                            </div>
+                        </>
                     }
                     <div className = 'bg-white border-t p-3 rounded-b-xl '>
                         <div className = 'flex w-full items-center justify-between'>
