@@ -17,17 +17,20 @@ const ProjectPage = () => {
     const { id } = router.query
 
     const handleAddCredite = () => {
-        console.log(addCrediteInput)
         gradeUser(project?._id, crediteModalOpen, addCrediteInput)
         setCrediteModalOpen(false)
+    }
+
+    const handleRemoveStudent = () => {
+        console.log(deleteModalOpen, 'setp')
+        removeStudent(project?._id, deleteModalOpen)
+        setDeleteModalOpen(false)
     }
 
     useEffect(() => {
         if(!id) return 
         getProjectById(router.query.id)
     }, [id])
-
-    console.log(project?.authorName)
 
     return (
         <div className = {'p-8 pt-10'}>
@@ -127,7 +130,7 @@ const ProjectPage = () => {
                                                             <ion-icon name="pencil"></ion-icon>
                                                         </div>
                                                         <div
-                                                            onClick = {e => { project?.author === user?._id ? removeStudent(project?._id, student?._id)  : setDeleteModalOpen(false)}} 
+                                                            onClick = {e => { project?.author === user?._id ? setDeleteModalOpen(student?._id)  : setDeleteModalOpen(false)}} 
                                                             className = 'flex text-2xl items-center justify-center text-red-500 pr- cursor-pointer hover:text-red-700'>
                                                             <ion-icon name="trash-sharp"></ion-icon>
                                                         </div>
@@ -145,6 +148,21 @@ const ProjectPage = () => {
                     </div>
                 </div>
             </div>
+            <Modal visible = {deleteModalOpen} setVisible = {setDeleteModalOpen} >
+                <div onClick = {e => e.stopPropagation()} className = 'w-[50%] h-[130px] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
+                    <div className = 'text-2xl font-bold text-red-400'>
+                        Elimina elev
+                    </div>
+                    <div className = 'flex gap-2 items-center justify-end'>
+                        <div className = 'p-2 bg-emerald-400 card-hover w-20 text-center rounded text-white font-bold' onClick = {e => setDeleteModalOpen(false)}>
+                            Cancel
+                        </div>
+                        <div className = 'p-2 bg-red-400 w-20 text-center card-hover rounded text-white font-bold' onClick = {handleRemoveStudent}>
+                            Ok
+                        </div>
+                    </div>
+                </div>
+            </Modal>
             <Modal visible = {crediteModalOpen} setVisible = {setCrediteModalOpen} >
                 <div onClick = {e => e.stopPropagation()} className = 'w-[50%] h-[200px] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
                     <div className = 'text-2xl font-bold'>
