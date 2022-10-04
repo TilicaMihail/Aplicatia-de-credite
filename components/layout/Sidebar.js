@@ -16,12 +16,12 @@ const SidebarComponent = ({ smallScreen}) => {
             prefix: '/proiecte',
             icon: <ion-icon name="folder-outline"></ion-icon>
         },
-        {
-            name: 'Internship-uri',
-            url: '/internships',
-            prefix: '/internships',
-            icon: <ion-icon name="ribbon-outline"></ion-icon>
-        },
+        // {
+        //     name: 'Internship-uri',
+        //     url: '/internships',
+        //     prefix: '/internships',
+        //     icon: <ion-icon name="ribbon-outline"></ion-icon>
+        // },
         {
             name: 'Elevi',
             url: '/elevi',
@@ -34,24 +34,24 @@ const SidebarComponent = ({ smallScreen}) => {
             prefix: '/adauga-proiect',
             icon: <ion-icon name="add-circle-outline"></ion-icon>
         },
-        {
-            name: 'Adauga internship',
-            url: '/adauga-internship',
-            prefix: '/adauga-internship',
-            icon: <ion-icon name="cube-outline"></ion-icon>
-        },
-        {
-            name: 'Profil',
-            url: `/profil/${user?._id}`,
-            prefix: '/profil',
-            icon: <ion-icon name="person-outline"></ion-icon>
-        },
-        {
-            name: 'Setari',
-            url: '/setari',
-            prefix: '/setari',
-            icon: <ion-icon name="settings-outline"></ion-icon>
-        },
+        // {
+        //     name: 'Adauga internship',
+        //     url: '/adauga-internship',
+        //     prefix: '/adauga-internship',
+        //     icon: <ion-icon name="cube-outline"></ion-icon>
+        // },
+        // {
+        //     name: 'Profil',
+        //     url: `/profil/${user?._id}`,
+        //     prefix: '/profil',
+        //     icon: <ion-icon name="person-outline"></ion-icon>
+        // },
+        // {
+        //     name: 'Setari',
+        //     url: '/setari',
+        //     prefix: '/setari',
+        //     icon: <ion-icon name="settings-outline"></ion-icon>
+        // },
     ]
 
     return (
