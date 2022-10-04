@@ -1,4 +1,6 @@
+import { info } from 'daisyui/src/colors'
 import React, { useContext, useEffect } from 'react'
+import { SearchContext } from '../../contexts/SearchContext'
 import { UsersContext } from '../../contexts/UsersContext'
 import Header from '../layout/Header'
 import Elev from './Elev'
@@ -6,6 +8,7 @@ import Elev from './Elev'
 const EleviPage = () => {
 
     const { students } = useContext(UsersContext)
+    const { searchFilter } = useContext(SearchContext)
 
     return (
         <div>
@@ -17,6 +20,7 @@ const EleviPage = () => {
                 <div className = 'flex flex-col gap-3'>
                     {
                         students?.map((student, index) => {
+                            if(!(student.firstName + " " + student.lastName ).includes(searchFilter)) return
                             return (
                                 <div key = {index}>
                                     <Elev student = {student} index = {index} />
