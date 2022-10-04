@@ -8,6 +8,19 @@ import Modal from '../../ui-components/modals/Modal';
 import Select from 'react-select';
 import { UsersContext } from '../../../contexts/UsersContext';
 import ImagePicker from '../../ui-components/modals/ImagePicker';
+import { DatePicker } from '@mantine/dates';
+
+const claseOptions = [
+    { label: 9, value: 9 },
+    { label: 10, value: 10 },
+    { label: 11, value: 11 },
+    { label: 12, value: 12 },
+]
+
+const profileOptions = [
+    { label: "A", value: "A" },
+    { label: "B", value: "B" },
+]
 
 const ProjectPage = () => {
     const { project, getProjectById, setProject, gradeUser, removeStudent, signUpToProject, updateProject } = useContext(ProjectsContext)
@@ -23,8 +36,33 @@ const ProjectPage = () => {
     const [addStudentsLoading, setAddStudentsLoading] = useState(false)
     const [settingsModalOpen, setSettingsModalOpen] = useState(false)
     const [imgOptionsModalOpen, setImgOptionsModalOpen] = useState(false)
-    const [settingsOptions, setSettingsOptions] = useState({})
+    const [projectFetched, setProjectFetched] = useState(false)
+    const [settingsOptions, setSettingsOptions] = useState({
+        name: '',
+        description: '',
+        signUpDateLimit: '',
+        maxNumberCredits: 100,
+        maxNumberStudents: 10000,
+        clase: claseOptions,
+        profile: profileOptions
+    })
     const [imgUrl, setImgUrl] = useState('')
+
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [img, setImg] = useState('https://i.pinimg.com/originals/15/81/8f/15818f789d48bdc13ca560aa7d6c8606.jpg')
+    const [finalDate, setFinalDate] = useState('')
+    const [signUpDateLimit, setSignUpDateLimit] = useState('')
+    const [maxNumberStudents, setMaxNumberStudents] = useState(10000)
+    const [maxNumberCredits, setMaxNumberCredits] = useState(100)
+    const [signUpDependsOn, setSignUpDependsOn] = useState({})
+    const [clase, setClase] = useState()
+    const [profile, setProfile] = useState()
+    const [projectsOptions, setProjectsOptions] = useState([])
+    const [formSent, setFormSent] = useState(false)
+    const [error, setError] = useState('')
+    const [advanced, setAdvanced] = useState(true)
+    const [ImagePickerOpen, setImagePickerOpen] = useState(false)
 
     const router = useRouter()
     const { id } = router.query
@@ -53,17 +91,27 @@ const ProjectPage = () => {
 
     const handleSetImgUrl = async (val) => {
         const p = await updateProject(project?._id, { img: val})
-        console.log(p)
+        setSettingsOptions(p)
         setProject(p)
         setImgUrl(val)
     }
 
+    const handleUpdateProject = async () => {
+        const p = await updateProject(project?._id, settingsOptions)
+        setProject(p)
+        setSettingsModalOpen(false)
+    }
+
     useEffect(() => {
+        setSettingsOptions(project)
+        if(projectFetched) return
+
         if(!id) return 
         getProjectById(router.query.id)
+        setProjectFetched(true)
         if(!students?.length) return 
         setStudentsOptions(students.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
-    }, [id, students])
+    }, [id, students, project])
 
     return (
         <div className = {'p-8 pt-10'}>
@@ -88,7 +136,10 @@ const ProjectPage = () => {
                     />
                     {(project?.author === user?._id) && 
                         <>
-                            <div className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white left-5 btn btn-info'>
+                            <div
+                                onClick = {e => setSettingsModalOpen(true)} 
+                                className = 'flex items-center justify-center bg-blue-40 p-2 text-3xl rounded-lg absolute top-5 text-white left-5 btn btn-info'
+                            >
                                 <ion-icon name="settings-sharp"></ion-icon>
                             </div>
                             <div 
@@ -190,6 +241,79 @@ const ProjectPage = () => {
                     </div>
                 </div>
             </div>
+            <Modal visible = {settingsModalOpen} setVisible = {setSettingsModalOpen} >
+                <div onClick = {e => e.stopPropagation()} className = 'w-[50%] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
+                    <div className = 'text-2xl font-bold pl-4'>
+                        Modifica detaliile proiectului
+                    </div>
+                    <div className = ''>
+                        <div className = 'bg-white rounded-xl w-full flex overflow-hidden flex-col relative'>
+                        <div className = 'flex flex-col p-3'>
+                            <input className = 'outline-none text-xl p-2' value = {settingsOptions?.name} onChange = {e => setSettingsOptions(p => ({...p, name: e.target.value }))} placeholder = "Nume proiect"/>
+                            <textarea className = ' resize-none outline-none p-2 h-10 text-sm lg:text-base' value = {settingsOptions?.description} onChange = {e => setSettingsOptions(p => ({...p, description: e.target.value }))} placeholder = "Descriere proiect"/>
+                        </div>
+                    </div>
+                        <div className = 'bg-white rounded-xl w-full flex flex-col relative'>
+                            <div className = 'flex flex-col pl-3 pr-3'>
+                                <div>
+                                    <div className = 'p-2'>
+                                        <DatePicker placeholder="Pick date" label="Limita data inscriere" value = {settingsOptions?.signUpDateLimit} onChange = {e => setSettingsOptions(p => ({...p, signUpDateLimit: e }))} />
+                                    </div>
+                                    <div className = 'p-2'>
+                                        <NumberInput label = 'Numar maxim elevi' value = {settingsOptions?.maxNumberStudents} onChange = {val => setSettingsOptions(p => ({...p, maxNumberStudents: val }))} />
+                                    </div>
+                                    <div className = 'p-2'>
+                                        <NumberInput label = 'Numar maxim credite' value = {settingsOptions?.maxNumberCredits} onChange = {val => setSettingsOptions(p => ({...p, maxNumberCredits: val }))}/>
+                                    </div>
+                                    <div className = 'p-2 pt-3'>
+                                        <div className = 'text-sm'>
+                                            Clase
+                                        </div>
+                                        <Select 
+                                            defaultValue = {settingsOptions?.clase?.map(s => ({label: s, value: s}))}
+                                            options = {claseOptions}
+                                            onChange = {val => setSettingsOptions(p => ({...p, clase: val.map(val => val.value )}))}
+                                            isMulti
+                                            closeMenuOnSelect = {false}
+                                        />
+                                    </div>
+                                    <div className = 'p-2 pt-3'>
+                                        <div className = 'text-sm'>
+                                            Profile
+                                        </div>
+                                        <Select 
+                                            defaultValue = {settingsOptions?.profile?.map(s => ({label: s, value: s}))}
+                                            options = {profileOptions}
+                                            onChange = {val => setSettingsOptions(p => ({...p, profile: val.map(val => val.value )}))}
+                                            isMulti
+                                            closeMenuOnSelect = {false}
+                                        />
+                                    </div>
+                                    {/* <div className = 'p-2 pt-3'>
+                                        <div className = 'text-sm'>
+                                            Inscrierea depinde de participarea la
+                                        </div>
+                                        <Select 
+                                            options = {projectsOptions}
+                                            isMulti
+                                            onChange = {val => setSignUpDependsOn(val.map(val => val.value))}
+                                            closeMenuOnSelect = {false}
+                                        />
+                                    </div> */}
+                            </div>
+                    </div>
+                </div>
+                </div>
+                    <div className = 'flex gap-2 items-center justify-end pr-4 pt-2'>
+                        <div className = {'p-2 bg-red-400 card-hover w-20 text-center rounded text-white font-bold' + (false && ' bg-gray-400')} onClick = {e => {setSettingsModalOpen(false); setSettingsOptions(project)}}>
+                            Cancel
+                        </div>
+                        <div className = {'p-2 bg-sky-400 w-20 text-center card-hover rounded text-white font-bold ' + (false && ' loading btn btn-info')} onClick = {handleUpdateProject}>
+                            Ok
+                        </div>
+                    </div>
+                </div>
+            </Modal>
             <Modal visible = {addStudentsModalOpen} setVisible = {setAddStudentsModalOpen} >
                 <div onClick = {e => e.stopPropagation()} className = 'w-[50%] bg-white rounded-xl shadow-lg p-3 flex flex-col justify-between'>
                     <div className = 'text-2xl font-bold'>
