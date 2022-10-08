@@ -70,9 +70,9 @@ const ProjectsProvider = ({ children }) => {
                 params: query, 
                 withCredentials: true
             })
-            console.log(response.data, 'this is context')
             setCreatedProjects(response.data)
         } catch (error) {
+            setCreatedProjects([])
             return error?.response?.data?.message
         }
     }
@@ -85,6 +85,7 @@ const ProjectsProvider = ({ children }) => {
             })
             setSignedUpProjects(response.data)
         } catch (error) {
+            setSignedUpProjects([])
             return error?.response?.data?.message
         }
     }

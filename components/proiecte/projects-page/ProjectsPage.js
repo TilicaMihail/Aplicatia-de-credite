@@ -8,14 +8,17 @@ import UnapprovedSection from '../sections/UnapprovedSection'
 import SignedUpSection from '../sections/SignedUpSection'
 import CreatedSection from '../sections/CreatedSection'
 import { ProjectsContext } from '../../../contexts/ProjectsContext'
+import { UsersContext } from '../../../contexts/UsersContext'
 
 const ProjectsPage = () => {
     const { user } = useContext(AuthContext)
     const { fetchProjects } = useContext(ProjectsContext)
+    const { getUserById } = useContext(UsersContext)
 
     useEffect(() => {
         if(!user) return
         fetchProjects()
+        getUserById(user?._id)
     }, [user])
     
     const tabs = (
