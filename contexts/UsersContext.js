@@ -8,6 +8,7 @@ const UsersProvider = ({ children }) => {
     const [students, setStudents] = useState()
     const [teachers, setTeachers] = useState()
     const [studentsByClasa, setStudentsByClasa] = useState()
+    const [userById, setUserById] = useState()
     const [loading, setLoading] = useState()
     
     const getStudents = async () => {
@@ -27,8 +28,14 @@ const UsersProvider = ({ children }) => {
 
     }
 
-    const getUserById = async () => {
-
+    const getUserById = async (id) => {
+        try {
+            const response = await axios.get(`${apiUrl}/users/${id}`, { withCredentials: true })
+            setUserById(response.data)
+            console.log(response)
+        } catch (err) {
+            console.log('hello')
+        }
     }
 
     const updateUsers = async () => {
@@ -49,6 +56,7 @@ const UsersProvider = ({ children }) => {
             teachers, 
             studentsByClasa,
             loading,
+            userById,
             getStudents,
             getTeachers,
             getStudentsByClasa,

@@ -46,12 +46,12 @@ const SidebarComponent = ({ smallScreen}) => {
             prefix: '/profil',
             icon: <ion-icon name="person-outline"></ion-icon>
         },
-        {
-            name: 'Setari',
-            url: '/setari',
-            prefix: '/setari',
-            icon: <ion-icon name="settings-outline"></ion-icon>
-        },
+        // {
+        //     name: 'Setari',
+        //     url: '/setari',
+        //     prefix: '/setari',
+        //     icon: <ion-icon name="settings-outline"></ion-icon>
+        // },
     ]
 
     return (

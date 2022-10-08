@@ -48,22 +48,6 @@ const ProjectPage = () => {
     })
     const [imgUrl, setImgUrl] = useState('')
 
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [img, setImg] = useState('https://i.pinimg.com/originals/15/81/8f/15818f789d48bdc13ca560aa7d6c8606.jpg')
-    const [finalDate, setFinalDate] = useState('')
-    const [signUpDateLimit, setSignUpDateLimit] = useState('')
-    const [maxNumberStudents, setMaxNumberStudents] = useState(10000)
-    const [maxNumberCredits, setMaxNumberCredits] = useState(100)
-    const [signUpDependsOn, setSignUpDependsOn] = useState({})
-    const [clase, setClase] = useState()
-    const [profile, setProfile] = useState()
-    const [projectsOptions, setProjectsOptions] = useState([])
-    const [formSent, setFormSent] = useState(false)
-    const [error, setError] = useState('')
-    const [advanced, setAdvanced] = useState(true)
-    const [ImagePickerOpen, setImagePickerOpen] = useState(false)
-
     const router = useRouter()
     const { id } = router.query
 
