@@ -51,7 +51,7 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
                             </div>
                             <div className = 'flex items-center justify-center mt-2'>
                                 <input className = 'border outline-none grow p-3 m-1 rounded-xl' value = {customUrl} onChange = {e => {setCustomUrl(e.target.value); setError('')}} placeholder = 'Enter image address' />
-                                <div className = 'btn btn-info text-white' onClick = {() => {customUrl !== '' ? setImageOptions(prev => [...prev, customUrl]) : setError('Custom url input is empty')}}>
+                                <div className = 'btn btn-info text-white' onClick = {() => {customUrl !== '' ? setImgUrl(customUrl) : setError('Custom url input is empty')}}>
                                     Add custom image
                                 </div>
                             </div>
