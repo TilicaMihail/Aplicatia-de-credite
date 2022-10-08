@@ -19,6 +19,14 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
         'https://img.freepik.com/free-vector/gym-concept-illustration_114360-6550.jpg?w=2000',
         'https://cdni.iconscout.com/illustration/premium/thumb/couple-doing-exercise-in-the-gym-2511564-2117903.png',
         'https://www.holbeachprimaryacademy.co.uk/_images/1085509_l.jpg',
+        'http://unblast.com/wp-content/uploads/2020/05/Back-to-School-Illustration.jpg',
+        'https://unblast.com/wp-content/uploads/2020/03/Problem-Solving-Illustration-1.jpg',
+        'https://unblast.com/wp-content/uploads/2020/05/Graphic-Design-Vector-Illustration.jpg',
+        'https://t4.ftcdn.net/jpg/03/34/15/27/360_F_334152743_WHNyumilcxfn1fVUfL7H0rioJImfxe5K.jpg',
+        'https://unblast.com/wp-content/uploads/2021/09/Data-Analytic-Process-Illustration.jpg',
+        'https://unblast.com/wp-content/uploads/2022/08/Programmer-Illustration-0.jpg',
+        'https://unblast.com/wp-content/uploads/2020/04/Female-Doctor-Vector-Illustration.jpg',
+
     ])
 
     return (

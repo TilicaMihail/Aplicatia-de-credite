@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react'
 import { apiUrl } from '../apiUrl'
 import { AuthContext } from './AuthContext'
+import { UsersContext } from './UsersContext'
 
 export const ProjectsContext = React.createContext({})
 
@@ -15,6 +16,7 @@ const ProjectsProvider = ({ children }) => {
     const [signedUpProjects, setSignedUpProjects] = useState([]);
     const [project, setProject] = useState()
     const [loading, setLoading] = useState(true)
+    const { getStudents } = useContext(UsersContext)
 
     const { user } = useContext(AuthContext)
 
@@ -151,6 +153,7 @@ const ProjectsProvider = ({ children }) => {
         try {
             const response = await axios.post(`${apiUrl}/projects/grade/${projectId}`, { userId: userId, credite: credite }, { withCredentials: true })
             setProject(response.data)
+            getStudents()
         } catch (error) {
             
         }
