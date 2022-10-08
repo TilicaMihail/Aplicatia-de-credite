@@ -7,6 +7,8 @@ const CreatedSection = () => {
     const { createdProjects, loading } = useContext(ProjectsContext)
     const { searchFilter } = useContext(SearchContext)
 
+    console.log(createdProjects?.length > 0)
+
     if(!loading && !createdProjects?.length)
         return (
             <div className = 'text-center pt-10 text-lg'>

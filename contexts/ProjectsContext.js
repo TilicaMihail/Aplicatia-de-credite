@@ -70,6 +70,7 @@ const ProjectsProvider = ({ children }) => {
                 params: query, 
                 withCredentials: true
             })
+            console.log(response.data, 'this is context')
             setCreatedProjects(response.data)
         } catch (error) {
             return error?.response?.data?.message
@@ -201,53 +202,49 @@ const ProjectsProvider = ({ children }) => {
         }
     }
 
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            if(!user)
-                return 
-            setLoading(true);
-            await getUnapprovedProjects();
-            await getAdvancedProjects({ 
-                includeArchived: false, 
-                clase: user.role === 'elev' ? 
-                    [user.clasa] : 
-                    ['9', '10', '11', '12'],
-                profile: user.role === 'elev' ? 
-                    [user.profil]: 
-                    ['A', 'B'],
-            });
-            await getVolunteeringProjects({ 
-                includeArchived: false, 
-                clase: user.role === 'elev' ? 
-                    [user.clasa] : 
-                    ['9', '10', '11', '12'],
-                profile: user.role === 'elev' ? 
-                    [user.profil]: 
-                    ['A', 'B'],
-            });
-            await getCreatedProjects({
-                includeArchived: false,
-                clase: user.role === 'elev' ? 
-                    [user.clasa] : 
-                    ['9', '10', '11', '12'],
-                profile: user.role === 'elev' ? 
-                    [user.profil]: 
-                    ['A', 'B'],
-            }, user._id);
-            await getSignedUpProjects({
-                includeArchived: false,
-                clase: user.role === 'elev' ? 
-                    [user.clasa] : 
-                    ['9', '10', '11', '12'],
-                profile: user.role === 'elev' ? 
-                    [user.profil]: 
-                    ['A', 'B'],
-            }, user._id);
-            setLoading(false);
-        }
-        fetchProjects()
-    }, [user])
+    const fetchProjects = async () => {
+        if(!user)
+            return 
+        setLoading(true);
+        await getUnapprovedProjects();
+        await getAdvancedProjects({ 
+            includeArchived: false, 
+            clase: user.role === 'elev' ? 
+                [user.clasa] : 
+                ['9', '10', '11', '12'],
+            profile: user.role === 'elev' ? 
+                [user.profil]: 
+                ['A', 'B'],
+        });
+        await getVolunteeringProjects({ 
+            includeArchived: false, 
+            clase: user.role === 'elev' ? 
+                [user.clasa] : 
+                ['9', '10', '11', '12'],
+            profile: user.role === 'elev' ? 
+                [user.profil]: 
+                ['A', 'B'],
+        });
+        await getCreatedProjects({
+            includeArchived: false,
+            clase: user.role === 'elev' ? 
+                [user.clasa] : 
+                ['9', '10', '11', '12'],
+            profile: user.role === 'elev' ? 
+                [user.profil]: 
+                ['A', 'B'],
+        }, user._id);
+        await getSignedUpProjects({
+            includeArchived: false,
+            clase: user.role === 'elev' ? 
+                [user.clasa] : 
+                ['9', '10', '11', '12'],
+            profile: user.role === 'elev' ? 
+                [user.profil]: 
+                ['A', 'B'],
+        }, user._id);
+        setLoading(false);
+    }
 
     return (
         <ProjectsContext.Provider 
@@ -267,6 +264,7 @@ const ProjectsProvider = ({ children }) => {
                 getVolunteeringProjects,
                 getCreatedProjects,
                 getSignedUpProjects,
+                fetchProjects,
                 getProjectById,
                 approveProject,
                 signUpToProject,

@@ -1,9 +1,12 @@
-import { info } from 'daisyui/src/colors/colorNames'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
+import { ProjectsContext } from '../../contexts/ProjectsContext'
 import { UsersContext } from '../../contexts/UsersContext'
+import CreatedSection from '../proiecte/sections/CreatedSection'
+import SignedUpSection from '../proiecte/sections/SignedUpSection'
+import Tabs from '../ui-components/tabs/Tabs'
 
 const ProfilePage = () => {
     const [profileData, setProfileData] = useState({
@@ -13,18 +16,37 @@ const ProfilePage = () => {
         email: '',
         phoneNumber: '',
     })
-    const [userFetched, setUserFetched] = useState(false)
-    const { user, loading } = useContext(AuthContext)
+    const { createdProjects, getCreatedProjects, getSignedUpProjects, setLoading, fetchProjects } = useContext(ProjectsContext)
     const { userById, getUserById } = useContext(UsersContext)
+    const { user } = useContext(AuthContext)
     const router = useRouter()
     const { id } = router.query
 
-    useEffect(() => {
-        if(!id) return 
-        getUserById(id)
-    }, [id])
+    const tabs = (
+        userById?.role === 'elev' ? 
+            [
+                { label: 'Proiectele mele', component: <SignedUpSection />},
+                { label: 'Proiecte create', component: <CreatedSection />}
+            ]
+        :
+            [
+                { label: 'Proiecte create', component: <CreatedSection />}
+            ]
+    )
 
-    console.log(userById) 
+    useEffect(() => {
+        if(!id || !user) return 
+        const fetch = async () => {
+            setLoading(true)
+            await getCreatedProjects({ includeArchived: true, clase: ['9', '10', '11', '12'], profile: ['A', 'B'] }, id)
+            await getSignedUpProjects({ includeArchived: true, clase: ['9', '10', '11', '12'], profile: ['A', 'B'] }, id)
+            setLoading(false)
+        }
+        fetch()
+        getUserById(id) 
+    }, [id, user])
+
+    console.log(createdProjects)
 
     return (
         <div>
@@ -53,12 +75,14 @@ const ProfilePage = () => {
                         />
                     </div>
                 </div>
-                <div className = 'asdf'>
-
-                </div>
-            </div>
+            </div>  
             <div>
-
+                <div className = 'pl-8 pr-8'>
+                    <div className = 'font-bold sm:text-2xl text-xl pl-2 pb-3'>
+                        Proiecte
+                    </div>
+                    <Tabs tabs = {tabs} />
+                </div>
             </div>
             <div>
 

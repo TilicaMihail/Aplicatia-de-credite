@@ -22,7 +22,8 @@ const Tabs = ({ tabs }) => {
             </div>
             <div className = 'p-2 pt-6'>
                 {
-                    tabs[selected].component
+                    !tabs[selected] && selected > 0 ? setSelected(prev => prev - 1)
+                    : tabs[selected]?.component
                 }
             </div>
         </div>

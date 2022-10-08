@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../../../contexts/AuthContext'
 import Header from '../../layout/Header'
 import Tabs from '../../ui-components/tabs/Tabs'
@@ -7,9 +7,16 @@ import VluntieeringSection from '../sections/VlunteeringSection'
 import UnapprovedSection from '../sections/UnapprovedSection'
 import SignedUpSection from '../sections/SignedUpSection'
 import CreatedSection from '../sections/CreatedSection'
+import { ProjectsContext } from '../../../contexts/ProjectsContext'
 
 const ProjectsPage = () => {
     const { user } = useContext(AuthContext)
+    const { fetchProjects } = useContext(ProjectsContext)
+
+    useEffect(() => {
+        if(!user) return
+        fetchProjects()
+    }, [user])
     
     const tabs = (
         user?.role === 'admin' ? 
