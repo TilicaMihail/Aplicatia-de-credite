@@ -20,14 +20,11 @@ const ProfilePage = () => {
     const { id } = router.query
 
     useEffect(() => {
-        if(userById)
-            setProfileData(userById)
-        if(!userFetched) return
         if(!id) return 
         getUserById(id)
     }, [id])
 
-    console.log(userById) 
+    // console.log(userById) 
 
     return (
         <div>
@@ -40,10 +37,10 @@ const ProfilePage = () => {
                         />
                     </div>
                     <div>
-                        <input className = 'grow-0' value = {profileData?.firstName} />
-                        <input className = 'grow-0' value = {profileData?.lastName} />
-                        <input className = 'grow-0' value = {profileData?.email} />
-                        <input className = 'grow-0' value = {profileData?.phoneNumber} />
+                        <div className = 'grow-0'> {userById?.firstName} </div>
+                        <div className = 'grow-0'> {userById?.lastName} </div>
+                        <div className = 'grow-0'> {userById?.phoneNumber} </div>
+                        <div className = 'grow-0'> {userById?.role} </div>
                     </div>
                 </div>
                 <div className = 'flex flex-col bg-white rounded-xl shadow-lg overflow-hidden grow'>

@@ -32,7 +32,6 @@ const UsersProvider = ({ children }) => {
         try {
             const response = await axios.get(`${apiUrl}/users/${id}`, { withCredentials: true })
             setUserById(response.data)
-            console.log(response)
         } catch (err) {
             console.log('hello')
         }
