@@ -6,13 +6,14 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
 
     const [options, setImageOptions] = useState([
         'https://i.pinimg.com/originals/15/81/8f/15818f789d48bdc13ca560aa7d6c8606.jpg',
-        'https://thumbs.dreamstime.com/b/mathematics-round-illustration-vector-math-algebra-symbol-made-thin-line-mathematical-icons-76131896.jpg',
-        'https://img.freepik.com/free-vector/online-language-class-illustration_1284-64727.jpg?w=1380&t=st=1664767369~exp=1664767969~hmac=691c0ecad572d824e0f9a52bbd8908d8958c234770e16f7f5a8b4a1ed56ba0e9',
-        'https://img.freepik.com/free-vector/tiny-students-with-huge-sign-pi-flat-vector-illustration-boy-girl-studying-math-algebra-school-college-holding-ruler-using-laptop-geometric-figures-background-education-concept_74855-23227.jpg?w=1060&t=st=1664767429~exp=1664768029~hmac=2badf61fae01f41b591a6ca2645d35714ffae65a2a4799d37bb79b8bdf05e2e7',
-        'https://img.freepik.com/free-vector/math-science-concept-with-school-lesson-items-retro-cartoon-style_1284-8084.jpg?w=826&t=st=1664767451~exp=1664768051~hmac=f78b281a749a62856bde98ac062c6134d2d70c8e8f8a7eed8099af3f70ddf9b5',
-        'https://img.freepik.com/free-vector/geopraphy-concept-with-retro-cartoon-school-lesson-set_1284-7502.jpg?w=826&t=st=1664767512~exp=1664768112~hmac=e77bbeca48bef480cb255d365db0165fec6207223cf104ff193776eb52d099b9',
-        'https://img.freepik.com/free-vector/programer-learning-programming-languages-by-computer-laptop-website-tutorial-channel-online-education-class-vector-illustration-software-development-programming-languages-learning_1150-55428.jpg?w=1060&t=st=1664767620~exp=1664768220~hmac=e043860b4b4e501f8a8c75d5402d8c57e9e0ed3981678a86fc91841ec61b6d51',
-
+        'https://media.istockphoto.com/vectors/people-learning-english-isometric-vector-illustration-distance-vector-id1214244642?k=20&m=1214244642&s=612x612&w=0&h=9xnN0QiEaJWRkL6NGHkirlD0qyWHjuxZMooW0xOZwm4=',
+        'https://assets.entrepreneur.com/content/3x2/2000/20150115183825-books-reading.jpeg?auto=webp&quality=95&crop=16:9&width=675',
+        'https://t3.ftcdn.net/jpg/03/11/56/20/360_F_311562094_O7mJHicgE5V9J2lefzBy43OJJNpn0B8E.jpg',
+        'https://img.freepik.com/free-vector/brain-cartoon-icon-illustration-education-object-icon-concept_138676-2578.jpg?size=338&ext=jpg&ga=GA1.2.1895937995.1665222507',
+        'https://www.jobtestprep.co.uk/media/31785/numerical-reasoning-test-formulas.jpg',
+        'https://content.presspage.com/uploads/2170/1920_gettyimages-1181559937.jpg?10000',
+        'https://media1.thehungryjpeg.com/thumbs2/ori_3631581_4xqfoqi8xmyp1v8sn5gmvmk2f0w1jbuit3pldfnc_doodle-math-blackboard-mathematical-theory-formulas-and-equations-ha.jpg',
+        'https://static.vecteezy.com/system/resources/previews/003/297/662/original/physics-concept-with-icon-set-with-big-word-free-vector.jpg',
     ])
 
     return (
@@ -28,7 +29,7 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
                                     options?.map((item, index) => {
                                         return (
                                             <div key = {index} onClick = {e => {e.stopPropagation(); setImgUrl(item)}}>
-                                                <img src={item} alt = '' className = {'w-52 h-52 object-cover m-2 rounded-xl overflow-hidden' + (imgUrl === item && ' border-blue-500 border shadow-lg')} />
+                                                <img src={item} alt = '' className = {'w-52 h-52 object-cover cursor-pointer m-2 rounded-xl overflow-hidden' + (imgUrl === item && ' border-blue-500 border shadow-lg')} />
                                             </div>
                                         )
                                     })

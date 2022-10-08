@@ -24,7 +24,7 @@ const ProfilePage = () => {
         getUserById(id)
     }, [id])
 
-    // console.log(userById) 
+    console.log(userById) 
 
     return (
         <div>
@@ -37,8 +37,8 @@ const ProfilePage = () => {
                         />
                     </div>
                     <div>
-                        <div className = 'grow-0'> {userById?.firstName} </div>
-                        <div className = 'grow-0'> {userById?.lastName} </div>
+                        <div className = 'grow-0 bg-red-500'> {userById?.firstName} {userById?.lastName} </div>
+                        <div className = 'grow-0'>  </div>
                         <div className = 'grow-0'> {userById?.phoneNumber} </div>
                         <div className = 'grow-0'> {userById?.role} </div>
                     </div>
