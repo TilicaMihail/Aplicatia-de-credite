@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Transition } from '@mantine/core';
 
 const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
-    
+    const [customUrl, setCustomUrl] = useState('')
+    const [error, setError] = useState('')
 
     const [options, setImageOptions] = useState([
         'https://i.pinimg.com/originals/15/81/8f/15818f789d48bdc13ca560aa7d6c8606.jpg',
@@ -14,6 +15,10 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
         'https://content.presspage.com/uploads/2170/1920_gettyimages-1181559937.jpg?10000',
         'https://media1.thehungryjpeg.com/thumbs2/ori_3631581_4xqfoqi8xmyp1v8sn5gmvmk2f0w1jbuit3pldfnc_doodle-math-blackboard-mathematical-theory-formulas-and-equations-ha.jpg',
         'https://static.vecteezy.com/system/resources/previews/003/297/662/original/physics-concept-with-icon-set-with-big-word-free-vector.jpg',
+        'https://www.thejoannabrowntrust.org/wp-content/uploads/2021/02/cropped-AdobeStock_293331958-scaled-1.jpeg',
+        'https://img.freepik.com/free-vector/gym-concept-illustration_114360-6550.jpg?w=2000',
+        'https://cdni.iconscout.com/illustration/premium/thumb/couple-doing-exercise-in-the-gym-2511564-2117903.png',
+        'https://www.holbeachprimaryacademy.co.uk/_images/1085509_l.jpg',
     ])
 
     return (
@@ -35,9 +40,15 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
                                     })
                                 }
                             </div>
-                            {/* <div className = 'btn btn-info text-white w-full mt-6 m-auto'>
-                                Alege imaginea
-                            </div> */}
+                            <div className = 'flex items-center justify-center mt-2'>
+                                <input className = 'border outline-none grow p-3 m-1 rounded-xl' value = {customUrl} onChange = {e => {setCustomUrl(e.target.value); setError('')}} placeholder = 'Enter image address' />
+                                <div className = 'btn btn-info text-white' onClick = {() => {customUrl !== '' ? setImageOptions(prev => [...prev, customUrl]) : setError('Custom url input is empty')}}>
+                                    Add custom image
+                                </div>
+                            </div>
+                            <div className = 'text-center p-1 text-red-500 font-bold'>
+                                {error}
+                            </div>
                         </div>
                     </div>
             }

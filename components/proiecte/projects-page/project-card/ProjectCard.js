@@ -11,7 +11,7 @@ const ProjectCard = ({ project }) => {
 
     return (
         <Link href = {`/proiecte/${project?._id}`}>
-            <div className = 'h-70 w-96 rounded-xl overflow-hidden card-hover cursor-pointer m-2 shadow-lg relative'>
+            <div className = 'h-70 w-96 rounded-xl overflow-hidden card-hover cursor-pointer mr-4 mb-4 shadow-lg relative'>
                 {   
                     project?.students?.[userById?._id]?.credite !== undefined ?
                     <div className = 'transition-all h-10 w-40 absolute top-5 gap-2 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'>
