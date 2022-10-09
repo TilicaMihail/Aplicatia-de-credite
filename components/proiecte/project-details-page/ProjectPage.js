@@ -9,6 +9,9 @@ import Select from 'react-select';
 import { UsersContext } from '../../../contexts/UsersContext';
 import ImagePicker from '../../ui-components/modals/ImagePicker';
 import { DatePicker } from '@mantine/dates';
+import { getOptionsFromChildren } from '@mui/base';
+import axios from 'axios';
+import { apiUrl } from '../../../apiUrl';
 
 const claseOptions = [
     { label: 9, value: 9 },
@@ -97,6 +100,25 @@ const ProjectPage = () => {
         setStudentsOptions(students.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
     }, [id, students, project])
 
+    const getPdf = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/projects/fisa-prezenta/${project._id}`, { 
+                withCredentials: true, 
+                responseType: 'arraybuffer',
+                headers: {
+                'Accept': 'application/pdf'
+                }}
+            )
+            const blob = new Blob([response.data], {type: 'application/pdf'})
+            const link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = `your-file-name.pdf`
+            link.click()
+        } catch (error) {
+            
+        }
+    }
+
     return (
         <div className = {'p-8 pt-10'}>
             <ImagePicker visible = {imgOptionsModalOpen} setVisible = {setImgOptionsModalOpen} imgUrl = {imgUrl} setImgUrl = {handleSetImgUrl} />
@@ -106,7 +128,7 @@ const ProjectPage = () => {
                     <div className = 'text-white font-bold text-xl'>
                         Obtine fisa de prezenta
                     </div>
-                    <div className = 'border border-white rounded text-white p-2 outline font-bold card-hover'>
+                    <div className = 'border border-white rounded text-white p-2 outline font-bold card-hover' onClick = {getPdf}>
                         Download PDF
                     </div>
                 </div>
