@@ -34,6 +34,7 @@ const AddProjectPage = () => {
     const [error, setError] = useState('')
     const [advanced, setAdvanced] = useState(true)
     const [ImagePickerOpen, setImagePickerOpen] = useState(false)
+    const [projectsFetched, setProjectsFetched] = useState(false)
 
     const { allProjects, getAllProjects, createProject } = useContext(ProjectsContext)
 
@@ -57,21 +58,22 @@ const AddProjectPage = () => {
 
     useEffect(() => {
         const getOptions = async () => {
-            await getAllProjects({
-                includeArchived: false,
-                clase: [9, 10, 11, 12],
-                profile: ["A", "B"]
-            })
-            console.log(allProjects)
             setProjectsOptions(allProjects.map((project) => {
                 return ({
                     label: project?.name,
                     value: project?._id,
                 })
             }))
+            if(projectsFetched) return
+            await getAllProjects({
+                includeArchived: false,
+                clase: [9, 10, 11, 12],
+                profile: ["A", "B"]
+            })
+            setProjectsFetched(true)
         }
         getOptions() 
-    }, [])
+    }, [allProjects])
 
     return (
         <form className = 'p-8 sm:pt-12 pt-16 relative' onSubmit = {handleCreateProject}>
