@@ -57,7 +57,7 @@ const InternshipsProvider = ({ children }) => {
             setCreatedInternships(prev => [...prev, response.data])
             router.push('/internships')
         } catch (error) {
-            
+            return error?.response?.data?.message
         }
     }
 

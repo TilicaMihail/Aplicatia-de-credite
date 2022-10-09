@@ -174,7 +174,7 @@ const ProjectsProvider = ({ children }) => {
             setCreatedProjects(prev => [...prev, response.data])
             router.push('/proiecte')
         } catch (error) {
-            
+            return error?.response?.data?.message
         }
     }
 
@@ -185,7 +185,7 @@ const ProjectsProvider = ({ children }) => {
             })
             return response.data
         } catch (error) {
-            return error?.response.data.message
+            return error?.response?.data?.message
         }
     }
 

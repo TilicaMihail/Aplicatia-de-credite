@@ -30,6 +30,8 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
         'https://media.istockphoto.com/vectors/young-adult-woman-reading-book-relaxing-sitting-in-chair-under-lamp-vector-id1159363620?k=20&m=1159363620&s=612x612&w=0&h=pY0TU2BqItqrRf-MJMkAxiy8uVCD1O76rjQJBVaa78o=',
         'http://unblast.com/wp-content/uploads/2020/04/Man-Reading-a-Book-Vector-Illustration-1.jpg',
         'https://img.freepik.com/free-vector/science-concept-with-microscope_23-2148539650.jpg?w=2000',
+        'https://images.unsplash.com/photo-1599168215926-ebe820046d54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Zm9yZXN0JTIwbW91bnRhaW58ZW58MHx8MHx8&w=1000&q=80',
+        'https://www.travelandleisure.com/thmb/JWO4CNVDNSR-aLDBT93jVlHV1DQ=/1800x1200/filters:fill(auto,1)/new-york-city-evening-NYCTG0221-52492d6ccab44f328a1c89f41ac02aea.jpg',
     ])
 
     return (
