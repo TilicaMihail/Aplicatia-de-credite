@@ -40,6 +40,7 @@ const AddInternshipPage = () => {
             name: name,
             description: description,
             img: img,
+            price: price,
             signUpDateLimit: signUpDateLimit,
             maxNumberStudents: maxNumberStudents,
             minNumberCredits: minNumberCredits,

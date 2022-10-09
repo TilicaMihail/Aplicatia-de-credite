@@ -16,13 +16,6 @@ const InternshipCard = ({ internship }) => {
                         { internship?.students?.[userById?._id]?.credite }
                         <ion-icon name="trophy"></ion-icon>
                     </div> :
-                    !internship?.approved && internship?.author !== userById?._id ?
-                    <div 
-                        onClick = {e => { e.stopPropagation(); approveProject(internship?._id)}}
-                        className = 'transition-all h-10 w-40 hover:w-48 absolute top-5 left-0 bg-blue-400 font-bold text-white text-lg flex items-center justify-center rounded-r'
-                    >
-                        Aproba
-                    </div> :
                     internship?.author === userById?._id || userById?.role !== 'elev' ?
                     <div></div> 
                     :
@@ -37,6 +30,9 @@ const InternshipCard = ({ internship }) => {
                     internship?.img || 'http://unblast.com/wp-content/uploads/2020/05/Back-to-School-Illustration.jpg'} 
                     className = 'object-cover h-48 w-full' 
                 />
+                <div className = 'absolute bottom-[100px] right-0 bg-white p-1 rounded-l'>
+                    Pret: { internship?.price } credite
+                </div>
                 <div className = 'bg-white h-24 border-t  p-2 flex flex-col justify-between '>
                     <div className = 'font-bold text-xl h-8 overflow-hidden'>
                         { internship.name } 
