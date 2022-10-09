@@ -64,7 +64,7 @@ const InternshipsProvider = ({ children }) => {
 
     const signUpToInternship = async (id) => {
         try {
-            const response = await axios.post(`${apiUrl}/internships/sign-up/${id}`, { withCredentials: true })
+            const response = await axios.post(`${apiUrl}/internships/sign-up/${id}`, {}, { withCredentials: true })
             setInternships(prev => (prev.filter(item => item._id !== id )))
             await getSignedUpInternships(user?._id)
         } catch (error) {

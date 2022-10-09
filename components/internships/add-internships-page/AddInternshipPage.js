@@ -31,7 +31,7 @@ const AddInternshipPage = () => {
     const [ImagePickerOpen, setImagePickerOpen] = useState(false)
     const [price, setPrice] = useState(0)
 
-    const { createInternship, internships, getInternships } = useContext(InternshipsContext)
+    const { createInternship, getInternships } = useContext(InternshipsContext)
 
     const handleCreateInternship = async (e) => {
         e.preventDefault()
@@ -46,8 +46,6 @@ const AddInternshipPage = () => {
             minNumberCredits: minNumberCredits,
         }))
     }
-
-    console.log(internships)
 
     useEffect(() => {
         getInternships()
