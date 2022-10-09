@@ -47,7 +47,7 @@ const InternshipsProvider = ({ children }) => {
     const getInternshipById = async (id) => {
         try {
             const response = await axios.get(`${apiUrl}/internships/${id}`, { withCredentials: true })
-            setInternships(response.data)
+            setInternship(response.data)
         } catch (error) {
             
         }
@@ -113,6 +113,7 @@ const InternshipsProvider = ({ children }) => {
             signedUpInternships,
             internship,
             internships,
+            setInternship,
             getCreatedInternships,
             getSignedUpInternships,
             getInternshipById,
