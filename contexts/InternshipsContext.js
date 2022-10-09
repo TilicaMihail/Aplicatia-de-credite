@@ -11,6 +11,7 @@ const InternshipsProvider = ({ children }) => {
     const [signedUpInternships, setSignedUpInternships] = useState([])
     const [internships, setInternships] = useState([])
     const [internship, setInternship] = useState()
+    const [loading, setLoading] = useState(false)
     const { user } = useContext(AuthContext)
 
     const router = useRouter()
@@ -26,7 +27,7 @@ const InternshipsProvider = ({ children }) => {
 
     const getCreatedInternships = async (id) => {
         try {
-            const response = await axios.get(`${apiUrl}/created-internships/${id}`, { withCredentials: true })
+            const response = await axios.get(`${apiUrl}/internships/created-internships/${id}`, { withCredentials: true })
             setCreatedInternships(response.data)
         } catch (error) {
             
@@ -35,7 +36,7 @@ const InternshipsProvider = ({ children }) => {
 
     const getSignedUpInternships = async (id) => {
         try {
-            const response = await axios.get(`${apiUrl}/signed-up-internships/${id}`, { withCredentials: true })
+            const response = await axios.get(`${apiUrl}/internships/signed-up-internships/${id}`, { withCredentials: true })
             setSignedUpInternships(response.data)
         } catch (error) {
             
@@ -89,6 +90,18 @@ const InternshipsProvider = ({ children }) => {
         }
     }
 
+    const fetchInternships = async () => {
+        try {
+            setLoading(true)
+            await getInternships()
+            await getCreatedInternships(user?._id);
+            await getSignedUpInternships(user?._id)
+            setLoading(false)
+        } catch (error) {
+            
+        }
+    }
+
     useEffect(() => {
         
     }, [])
@@ -107,6 +120,7 @@ const InternshipsProvider = ({ children }) => {
             updateInternship,
             deleteInternship,
             getInternships,
+            fetchInternships,
         }}>
             { children }
         </InternshipsContext.Provider>
