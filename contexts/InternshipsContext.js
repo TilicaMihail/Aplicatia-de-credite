@@ -1,40 +1,92 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect, useState } from 'react'
 import { apiUrl } from '../apiUrl'
+import { AuthContext } from './AuthContext'
 
 export const InternshipsContext = React.createContext({})
 
 const InternshipsProvider = ({ children }) => {
-    const [createdInternships, setCreatedInternships] = useState()
-    const [signedUpInternships, setSignedUpInternships] = useState()
+    const [createdInternships, setCreatedInternships] = useState([])
+    const [signedUpInternships, setSignedUpInternships] = useState([])
+    const [internships, setInternships] = useState([])
     const [internship, setInternship] = useState()
+    const { user } = useContext(AuthContext)
 
-    const getCreatedInternships = async () => {
+    const router = useRouter()
 
+    const getInternships = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/internships`, { withCredentials: true })
+            setInternships(response.data)
+        } catch (error) {
+            
+        }
     }
 
-    const getSignedUpInternships = async () => {
-
+    const getCreatedInternships = async (id) => {
+        try {
+            const response = await axios.get(`${apiUrl}/created-internships/${id}`, { withCredentials: true })
+            setCreatedInternships(response.data)
+        } catch (error) {
+            
+        }
     }
 
-    const getInternshipById = async () => {
-
+    const getSignedUpInternships = async (id) => {
+        try {
+            const response = await axios.get(`${apiUrl}/signed-up-internships/${id}`, { withCredentials: true })
+            setSignedUpInternships(response.data)
+        } catch (error) {
+            
+        }
     }
 
-    const createInternship = async () => {
-
+    const getInternshipById = async (id) => {
+        try {
+            const response = await axios.get(`${apiUrl}/internships/${id}`, { withCredentials: true })
+            setInternships(response.data)
+        } catch (error) {
+            
+        }
     }
 
-    const signUpToInternship = async () => {
-
+    const createInternship = async (body) => {
+        try {
+            const response = await axios.post(`${apiUrl}/internships`, body, { withCredentials: true})
+            setCreatedInternships(prev => [...prev, response.data])
+            router.push('/internships')
+        } catch (error) {
+            
+        }
     }
 
-    const updateInternship = async () => {
-
+    const signUpToInternship = async (id) => {
+        try {
+            const response = await axios.post(`${apiUrl}/internships/sign-up/${id}`, { withCredentials: true })
+            setInternships(prev => (prev.filter(item => item._id !== id )))
+            await getSignedUpInternships(user?._id)
+        } catch (error) {
+            
+        }
     }
 
-    const deleteInternship = async () => {
+    const updateInternship = async (id, body) => {
+        try {
+            const response = await axios.put(`${apiUrl}/internships/${id}`, body, { withCredentials: true })
+            return response.data
+        } catch (error) {
+            
+        }
+    }
 
+    const deleteInternship = async (id) => {
+        try {
+            await axios.delete(`${apiUrl}/internships/${id}`, { withCredentials: true }) 
+            setInternships(prev => (prev.filter(item => item._id !== id )))
+        } catch (error) {
+            
+        }
     }
 
     useEffect(() => {
@@ -46,6 +98,7 @@ const InternshipsProvider = ({ children }) => {
             createdInternships,
             signedUpInternships,
             internship,
+            internships,
             getCreatedInternships,
             getSignedUpInternships,
             getInternshipById,
@@ -53,6 +106,7 @@ const InternshipsProvider = ({ children }) => {
             signUpToInternship,
             updateInternship,
             deleteInternship,
+            getInternships,
         }}>
             { children }
         </InternshipsContext.Provider>

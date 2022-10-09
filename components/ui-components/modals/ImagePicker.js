@@ -28,6 +28,8 @@ const ImagePicker = ({ setImgUrl, imgUrl, visible, setVisible }) => {
         'https://unblast.com/wp-content/uploads/2020/04/Female-Doctor-Vector-Illustration.jpg',
         'https://miro.medium.com/max/750/1*sFaAHMeBX3GnhkL1CW7sTA.jpeg',
         'https://media.istockphoto.com/vectors/young-adult-woman-reading-book-relaxing-sitting-in-chair-under-lamp-vector-id1159363620?k=20&m=1159363620&s=612x612&w=0&h=pY0TU2BqItqrRf-MJMkAxiy8uVCD1O76rjQJBVaa78o=',
+        'http://unblast.com/wp-content/uploads/2020/04/Man-Reading-a-Book-Vector-Illustration-1.jpg',
+        'https://img.freepik.com/free-vector/science-concept-with-microscope_23-2148539650.jpg?w=2000',
     ])
 
     return (
