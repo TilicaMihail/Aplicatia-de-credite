@@ -37,6 +37,7 @@ const InternshipsProvider = ({ children }) => {
     const getSignedUpInternships = async (id) => {
         try {
             const response = await axios.get(`${apiUrl}/internships/signed-up-internships/${id}`, { withCredentials: true })
+            console.log(response.data, 'this is context')
             setSignedUpInternships(response.data)
         } catch (error) {
             
