@@ -27,7 +27,7 @@ const profileOptions = [
 
 const ProjectPage = () => {
     const { project, getProjectById, setProject, gradeUser, removeStudent, signUpToProject, updateProject } = useContext(ProjectsContext)
-    const { students } = useContext(UsersContext)
+    const { students, getStudents } = useContext(UsersContext)
     const { user } = useContext(AuthContext)
     const [descriptionOpen, setDescriptionOpen] = useState(false)
     const [crediteModalOpen, setCrediteModalOpen] = useState(false)
@@ -90,14 +90,14 @@ const ProjectPage = () => {
     }
 
     useEffect(() => {
+        setStudentsOptions(students?.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
         setSettingsOptions(project)
         if(projectFetched) return
 
         if(!id) return 
         getProjectById(router.query.id)
+        getStudents()
         setProjectFetched(true)
-        if(!students?.length) return 
-        setStudentsOptions(students.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
     }, [id, students, project])
 
     const getPdf = async () => {
@@ -112,7 +112,7 @@ const ProjectPage = () => {
             const blob = new Blob([response.data], {type: 'application/pdf'})
             const link = document.createElement('a')
             link.href = window.URL.createObjectURL(blob)
-            link.download = `your-file-name.pdf`
+            link.download = `fisa-prezenta-${project?.name}.pdf`
             link.click()
         } catch (error) {
             
