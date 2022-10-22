@@ -1,10 +1,12 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { apiUrl } from '../apiUrl'
 
 export const AuthContext = React.createContext({})
 
 const AuthProvider = ({ children }) => {
+    const router = useRouter()
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
 
@@ -28,11 +30,10 @@ const AuthProvider = ({ children }) => {
     
     const logout = async () => {
         try {
-            setError('')
-            await axios.post(`${apiUrl}/auth/logout`)
-            setUser(undefined)
+            await axios.post(`${apiUrl}/auth/logout`, {}, { withCredentials: true })
+            location.reload()
         } catch (error) {
-            
+            console.log(error.message)
         }
     } 
 

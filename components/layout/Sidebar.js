@@ -7,7 +7,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 
 const SidebarComponent = ({ smallScreen}) => {
     const router = useRouter();
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
 
     const sidebarData = [
         {
@@ -96,6 +96,9 @@ const SidebarComponent = ({ smallScreen}) => {
                 />
                 {user?.firstName} {' '}
                 {user?.lastName}
+                <button className = 'text-3xl items-center flex pl-3' onClick = {e => logout()}>
+                    <ion-icon name="log-out-outline"></ion-icon>
+                </button>
             </div>
         </div>
     )
