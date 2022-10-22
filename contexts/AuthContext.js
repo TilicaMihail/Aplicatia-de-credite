@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (authInfo) => {
         try {
-            const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true })
+            const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true, crossDomain: true })
             setUser(res.data)
         } catch (error) {
             return error?.response?.data?.message
