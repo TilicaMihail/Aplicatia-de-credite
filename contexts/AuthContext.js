@@ -38,6 +38,8 @@ const AuthProvider = ({ children }) => {
 
     const getUser = async () => {
         try {
+            const response = await fetch(`${apiUrl}/users/current-user`, { credentials: 'include', method: 'GET'})
+            console.log(response)
             const res = await axios.get(`${apiUrl}/users/current-user`, { withCredentials: true, crossDomain: true })
             setUser(res.data)
             setLoading(false)
