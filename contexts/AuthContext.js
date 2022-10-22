@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (authInfo) => {
         try {
-            const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true, crossDomain: true })
+            const res = await axios.post(`${apiUrl}/auth/login`, authInfo, { withCredentials: true })
             setUser(res.data)
         } catch (error) {
             return error?.response?.data?.message
@@ -38,9 +38,7 @@ const AuthProvider = ({ children }) => {
 
     const getUser = async () => {
         try {
-            const response = await fetch(`${apiUrl}/users/current-user`, { credentials: 'include', method: 'GET'})
-            console.log(response)
-            const res = await axios.get(`${apiUrl}/users/current-user`, { withCredentials: true, crossDomain: true })
+            const res = await axios.get(`${apiUrl}/users/current-user`, { withCredentials: true })
             setUser(res.data)
             setLoading(false)
         } catch (error) {
