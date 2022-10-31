@@ -20,7 +20,7 @@ const options = [
 ]
 
 const EleviPage = () => {
-    const [filter, setFilter] = useState({})
+    const [filter, setFilter] = useState({ label: 'All', value: {} })
     const { user } = useContext(AuthContext)
     const { students } = useContext(UsersContext)
     const { searchFilter } = useContext(SearchContext)
