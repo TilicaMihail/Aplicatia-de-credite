@@ -89,13 +89,15 @@ const SidebarComponent = ({ smallScreen}) => {
                     }
                 </div>
             </div>
-            <div className = 'pb-10 flex items-center justify-center'>
+            <div className = 'pb-10 flex items-center justify-between p-6'>
+                <div className = 'flex items-center '>
                 <img 
                     className = 'h-10 w-10 rounded-full border mr-2'
                     src = {user?.img || 'https://img.myloview.com/stickers/user-icon-vector-people-icon-profile-vector-icon-person-illustration-business-user-icon-users-group-symbol-male-user-symbol-400-223068872.jpg'} alt = ''
                 />
                 {user?.firstName} {' '}
                 {user?.lastName}
+                </div>
                 <button className = 'text-3xl items-center flex pl-3' onClick = {e => logout()}>
                     <ion-icon name="log-out-outline"></ion-icon>
                 </button>
