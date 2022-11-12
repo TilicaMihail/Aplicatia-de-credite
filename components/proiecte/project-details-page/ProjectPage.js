@@ -263,7 +263,7 @@ const ProjectPage = () => {
                             <div className = 'flex flex-col pl-3 pr-3'>
                                 <div>
                                     <div className = 'p-2'>
-                                        <DatePicker placeholder="Pick date" label="Limita data inscriere" value = {settingsOptions?.signUpDateLimit} onChange = {e => setSettingsOptions(p => ({...p, signUpDateLimit: e }))} />
+                                        <DatePicker placeholder="Pick date" label="Limita data inscriere" value = {settingsOptions?.signUpDateLimit} onChange = {e => setSettingsOptions(p => ({...p, signUpDateLimit: e.toDateString() }))} />
                                     </div>
                                     <div className = 'p-2'>
                                         <NumberInput label = 'Numar maxim elevi' value = {settingsOptions?.maxNumberStudents} onChange = {val => setSettingsOptions(p => ({...p, maxNumberStudents: val }))} />
