@@ -90,7 +90,7 @@ const ProjectPage = () => {
     }
 
     useEffect(() => {
-        setStudentsOptions(students?.filter(s => project?.clase?.includes(s.clasa) && project?.profile?.includes(s.profil))?.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
+        setStudentsOptions(students?.filter(s => project?.clase?.includes(s.clasa) && project?.profile?.includes(s.profil) && !Object.keys(project?.students).includes(s._id))?.map((s) => ({label: s?.firstName + ' ' + s?.lastName + '   ' + s?.clasa + s?.profil, value: s?._id })))
         setSettingsOptions(project)
         if(projectFetched) return
 
