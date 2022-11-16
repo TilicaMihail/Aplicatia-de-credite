@@ -20,7 +20,7 @@ const CreatedSection = () => {
         <div className = 'flex flex-wrap'>
             {
                 createdProjects?.map((project, index) => {
-                    if(!project.name.includes(searchFilter)) return 
+                    if(!project.name.toLowerCase().includes(searchFilter.toLowerCase())) return 
                     return (
                         <div key = {index}>
                             <ProjectCard project = {project} />

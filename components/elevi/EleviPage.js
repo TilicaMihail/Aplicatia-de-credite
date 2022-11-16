@@ -50,7 +50,7 @@ const EleviPage = () => {
                 <div className = 'flex flex-col gap-3'>
                     {
                         students?.filter(student => !(filter.value?.clasa && filter.value?.profil && !(student.clasa === filter.value.clasa && student.profil === filter.value.profil))).map((student, index) => {
-                            if(!(student.firstName + " " + student.lastName ).includes(searchFilter)) return
+                            if(!(student.firstName + " " + student.lastName ).toLowerCase().includes(searchFilter.toLowerCase())) return
                             return (
                                 <div key = {index}>
                                     <Elev student = {student} index = {index} />

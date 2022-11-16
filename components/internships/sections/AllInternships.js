@@ -18,7 +18,7 @@ const AllInternships = () => {
         <div className = 'flex flex-wrap'>
             {
                 internships?.map((internship, index) => {
-                    if(!internship.name.includes(searchFilter)) return 
+                    if(!internship.name.toLowerCase().includes(searchFilter.toLowerCase())) return 
                     return (
                         <div key = {index}>
                             <InternshipCard internship = {internship} />
