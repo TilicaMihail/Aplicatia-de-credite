@@ -42,7 +42,7 @@ const LoginForm = () => {
                             required
                             type="text" 
                             placeholder="Enter your email" 
-                            className="input input-info w-full" 
+                            className="input input-info w-full bg-white" 
                         />
                         <input 
                             value = {password}
@@ -50,7 +50,7 @@ const LoginForm = () => {
                             required
                             type="password" 
                             placeholder="Enter your password" 
-                            className="input input-bordered input-info w-full" 
+                            className="input input-bordered input-info w-full bg-white" 
                         />
                     </div>
                 </div>

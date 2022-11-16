@@ -59,35 +59,35 @@ const RegisterForm = () => {
                             onChange = {e => setFirstName(e.target.value)}
                             type="text" 
                             placeholder="Enter the first name" 
-                            className="input input-info w-full" 
+                            className="input input-info w-full bg-white" 
                         />
                         <input 
                             value = {lastName}
                             onChange = {e => setLastName(e.target.value)}
                             type="text" 
                             placeholder="Enter the last name" 
-                            className="input input-info w-full" 
+                            className="input input-info w-full bg-white" 
                         />
                         <input 
                             value = {phoneNumber}
                             onChange = {e => setPhoneNumber(e.target.value)}
                             type="text" 
                             placeholder="Enter the phone number" 
-                            className="input input-info w-full" 
+                            className="input input-info w-full bg-white" 
                         />
                         <input 
                             value = {email}
                             onChange = {e => setEmail(e.target.value)}
                             type="text" 
                             placeholder="Enter the email" 
-                            className="input input-info w-full" 
+                            className="input input-info w-full bg-white" 
                         />
                         <input 
                             value = {password}
                             onChange = {e => setPassword(e.target.value)}
                             type="password" 
                             placeholder="Enter the master password" 
-                            className="input input-bordered input-info w-full" 
+                            className="input input-bordered input-info w-full bg-white" 
                         />
                         <RoleSelect value = {role} setValue = {setRole}/>
                         {
